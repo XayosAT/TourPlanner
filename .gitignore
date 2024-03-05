@@ -1,1 +1,5 @@
 .idea/
+.vs/
+TourPlanner.sln
+TourPlanner/Properties/
+TourPlanner/bin/
