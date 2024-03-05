@@ -6,7 +6,81 @@
         xmlns:local="clr-namespace:TourPlanner"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    
+    <DockPanel LastChildFill="True">
+        <!-- Menu at the top -->
+        <Menu DockPanel.Dock="Top">
+            <MenuItem Header="File"/>
+            <MenuItem Header="Edit"/>
+            <MenuItem Header="Options"/>
+            <MenuItem Header="Help"/>
+        </Menu>
+        
+        <!-- Status bar at the bottom -->
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Content="Vestibulum at eros"/>
+        </StatusBar>
+        
+        <!-- Main content area -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <!-- Left Panel for Tours -->
+            <Border Grid.Column="0" Background="LightBlue" Padding="10">
+                <StackPanel>
+                    <!-- Grid for the buttons -->
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+            
+                        <!-- Button "+" in the first column -->
+                        <Button Content="+" Grid.Column="0" Margin="0,5,1,5" /> <!-- Click="AddTour" -->
+                        <!-- Button "-" in the second column -->
+                        <Button Content="-" Grid.Column="1" Margin="0,5,1,5" /> <!-- Click="DeleteTour" -->
+                        <!-- Button "..." in the third column -->
+                        <Button Content="..." Grid.Column="2" Margin="0,5,1,5"/>
+                    </Grid>
+        
+                    <!-- ListView below the buttons -->
+                    <ListView>
+                        <ListViewItem Content="Wienerwald"/>
+                        <ListViewItem Content="Dopplerhütte"/>
+                        <ListViewItem Content="Figlwart"/>
+                        <ListViewItem Content="Dorfrunde"/>
+                    </ListView>
+                </StackPanel>
+            </Border>
 
-    </Grid>
+
+            
+            <!-- Right Panel for Tour Details -->
+            <TabControl Grid.Column="1" Margin="10">
+                <TabItem Header="General">
+                    <!-- Content for General tab -->
+                    <DataGrid AutoGenerateColumns="False" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                            <DataGridTextColumn Header="Duration" Binding="{Binding Duration}" Width="*"/>
+                            <DataGridTextColumn Header="Distance" Binding="{Binding Distance}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </TabItem>
+                <TabItem Header="Route">
+                    <!-- Content for Route tab -->
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <Image Source="YourMapImage.png" Stretch="UniformToFill" />
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem Header="Misc">
+                    <!-- Content for Misc tab -->
+                </TabItem>
+            </TabControl>
+        </Grid>
+    </DockPanel>
 </Window>
