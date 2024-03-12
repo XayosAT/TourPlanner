@@ -50,12 +50,17 @@
                     </Grid>
         
                     <!-- ListView below the buttons -->
-                    <ListView>
-                        <ListViewItem Content="Wienerwald"/>
-                        <ListViewItem Content="Dopplerhütte"/>
-                        <ListViewItem Content="Figlwart"/>
-                        <ListViewItem Content="Dorfrunde"/>
+                    <!--show all Tours in the ListView an bind the selected Tour to the ViewModel-->
+                    <ListView ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}" Margin="0,10,0,0">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                            </GridView>
+                        </ListView.View>
                     </ListView>
+                    
+                    
+                    
                 </StackPanel>
             </Border>
 
@@ -65,26 +70,40 @@
             <TabControl Grid.Column="1" Margin="10">
                 <TabItem Header="General">
                     <!-- Content for General tab -->
-                    <DataGrid AutoGenerateColumns="False" 
-                              HorizontalAlignment="Stretch" 
-                              VerticalAlignment="Stretch"
-                              ItemsSource="{Binding Tours}"
-                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
-                            <DataGridTextColumn Header="From" Binding="{Binding StartLocation}" Width="*"/>
-                            <DataGridTextColumn Header="To" Binding="{Binding EndLocation}" Width="*"/>
-                            <DataGridTextColumn Header="Tour Type" Binding="{Binding Type}" Width="*"/>
-                            <DataGridTextColumn Header="Duration" Binding="{Binding Time}" Width="*"/>
-                            <DataGridTextColumn Header="Distance" Binding="{Binding Distance}" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
+                    <StackPanel>
+                        <!-- StartLocation -->
+                        <TextBlock Text="Start Location:"/>
+                        <TextBox Text="{Binding SelectedTour.StartLocation}"/>
+
+                        <!-- EndLocation -->
+                        <TextBlock Text="End Location:"/>
+                        <TextBox Text="{Binding SelectedTour.EndLocation}"/>
+                        
+                        <!-- Distance -->
+                        <TextBlock Text="Distance:"/>
+                        <TextBox Text="{Binding SelectedTour.Distance}"/>
+                        
+                  
+                    </StackPanel>
                 </TabItem>
                 <TabItem Header="Route">
                     <!-- Content for Route tab -->
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <Image Source="YourMapImage.png" Stretch="UniformToFill" />
-                    </ScrollViewer>
+                    
+                    <!--show all Tour logs of the selected Tour in the ListView-->
+                    <DataGrid AutoGenerateColumns="False" 
+                              HorizontalAlignment="Stretch" 
+                              VerticalAlignment="Stretch"
+                              ItemsSource="{Binding SelectedTour.Logs}"
+                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
+                        
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
+                            <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime }" Width="*"/>
+                            <DataGridTextColumn Header="Total Distance" Binding="{Binding TotalDistance}" Width="*"/>
+                            <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Width="*"/>
+                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
                 </TabItem>
                 <TabItem Header="Misc">
                     <!-- Content for Misc tab -->

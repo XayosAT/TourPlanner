@@ -22,7 +22,7 @@ public class MainViewModel : INotifyPropertyChanged
     {
         Tours.Add(new Tour
         {
-            Name = "Tour 1",
+            Name = "Wienerwald",
             Description = "Tour 1 Description",
             StartLocation = "Start 1",
             EndLocation = "End 1",
@@ -33,7 +33,7 @@ public class MainViewModel : INotifyPropertyChanged
         });
         Tours.Add(new Tour
         {
-            Name = "Tour 2",
+            Name = "Donauinsel",
             Description = "Tour 2 Description",
             StartLocation = "Start 2",
             EndLocation = "End 2",
@@ -42,6 +42,9 @@ public class MainViewModel : INotifyPropertyChanged
             Time = 120,
             ImagePath = "Path to Image 2"
         });
+        Tours[0].AddDemoLogs();
+        Tours[1].AddDemoLogs();
+          
     }
     
     public Tour SelectedTour
@@ -53,6 +56,7 @@ public class MainViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+    
 
     public event PropertyChangedEventHandler PropertyChanged;
 
