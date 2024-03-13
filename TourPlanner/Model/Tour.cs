@@ -14,7 +14,7 @@ public class Tour : INotifyPropertyChanged
         Foot
     }
     
-    public ObservableCollection<TourLogs> Logs { get; set; }
+    public ObservableCollection<TourLogs> Logs { get; set; } = new ObservableCollection<TourLogs>();
     
     private string _name;
     private string _description;
@@ -114,13 +114,16 @@ public class Tour : INotifyPropertyChanged
 
     private TourLogs GetDemoLog()
     {
+        
         TourLogs log = new TourLogs();
-        log.Date = "2021-06-01";
+        
+        log.Date = DateTime.Now.ToString("dd.MM.yyyy");
         log.TotalTime = new Random().Next(1, 5);
         log.Comment = "Demo Comment";
-        log.Difficulty = (TourLogs.DifficultyType) new Random().Next(0, 3);
+        log.Difficulty = (TourLogs.DifficultyType)new Random().Next(0, 3);
         log.TotalDistance = new Random().Next(1, 5);
-        log.Rating = (TourLogs.RatingType) new Random().Next(0, 3);
+        log.Rating = (TourLogs.RatingType)new Random().Next(0, 3);
+        
         return log;
      
     }

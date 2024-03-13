@@ -23,14 +23,14 @@ public class TourLogs : INotifyPropertyChanged
         Excellent
     }
     
-    private string _date;
+    private string? _date;
     private float _totalTime;
-    private string _comment;
+    private string? _comment;
     private DifficultyType _difficulty;
     private float _totalDistance;
     private RatingType _rating; 
     
-    public string Date
+    public string? Date
     {
         get => this._date; 
         set
@@ -49,7 +49,7 @@ public class TourLogs : INotifyPropertyChanged
         }
     }
     
-    public string Comment { 
+    public string? Comment { 
         get => this._comment; 
         set
         {
