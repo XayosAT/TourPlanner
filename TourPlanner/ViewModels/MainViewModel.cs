@@ -16,6 +16,7 @@ public class MainViewModel : INotifyPropertyChanged
         Tours = new ObservableCollection<Tour>();
         // Populate Tours collection here
         LoadTours();
+        SelectedTour = Tours[0];
     }
 
     private void LoadTours()
@@ -58,7 +59,7 @@ public class MainViewModel : INotifyPropertyChanged
     }
     
 
-    public event PropertyChangedEventHandler PropertyChanged;
+    public event PropertyChangedEventHandler? PropertyChanged;
 
     protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {

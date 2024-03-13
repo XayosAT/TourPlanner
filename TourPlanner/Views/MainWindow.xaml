@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TourPlanner"
+        xmlns:views="clr-namespace:TourPlanner.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.DataContext>
@@ -69,44 +70,16 @@
             <!-- Right Panel for Tour Details -->
             <TabControl Grid.Column="1" Margin="10">
                 <TabItem Header="General">
-                    <!-- Content for General tab -->
-                    <StackPanel>
-                        <!-- StartLocation -->
-                        <TextBlock Text="Start Location:"/>
-                        <TextBox Text="{Binding SelectedTour.StartLocation}"/>
-
-                        <!-- EndLocation -->
-                        <TextBlock Text="End Location:"/>
-                        <TextBox Text="{Binding SelectedTour.EndLocation}"/>
-                        
-                        <!-- Distance -->
-                        <TextBlock Text="Distance:"/>
-                        <TextBox Text="{Binding SelectedTour.Distance}"/>
-                        
-                  
-                    </StackPanel>
-                </TabItem>
-                <TabItem Header="Route">
-                    <!-- Content for Route tab -->
+                    <views:General/>
                     
-                    <!--show all Tour logs of the selected Tour in the ListView-->
-                    <DataGrid AutoGenerateColumns="False" 
-                              HorizontalAlignment="Stretch" 
-                              VerticalAlignment="Stretch"
-                              ItemsSource="{Binding SelectedTour.Logs}"
-                              CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-                        
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Date" Binding="{Binding Date}" Width="*"/>
-                            <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime }" Width="*"/>
-                            <DataGridTextColumn Header="Total Distance" Binding="{Binding TotalDistance}" Width="*"/>
-                            <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" Width="*"/>
-                            <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" Width="*"/>
-                        </DataGrid.Columns>
-                    </DataGrid>
                 </TabItem>
+                
+                <TabItem Header="Route">
+                    <views:Route />
+                </TabItem>
+                
                 <TabItem Header="Misc">
-                    <!-- Content for Misc tab -->
+                    <views:Misc />
                 </TabItem>
             </TabControl>
         </Grid>
