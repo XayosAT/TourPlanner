@@ -68,20 +68,40 @@
 
             
             <!-- Right Panel for Tour Details -->
-            <TabControl Grid.Column="1" Margin="10">
-                <TabItem Header="General">
-                    <views:General/>
-                    
-                </TabItem>
-                
-                <TabItem Header="Route">
-                    <views:Route />
-                </TabItem>
-                
-                <TabItem Header="Misc">
-                    <views:Misc />
-                </TabItem>
-            </TabControl>
+            <ContentControl Grid.Column="1" Margin="10">
+                <ContentControl.Style>
+                    <Style TargetType="ContentControl">
+                        <Style.Triggers>
+                            <!-- Trigger to show AddTourControl when AddTourVisibility property is set to true -->
+                            <DataTrigger Binding="{Binding AddTourVisibility}" Value="True">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <views:AddTourControl />
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                            <!-- Default trigger to show the TabControl -->
+                            <DataTrigger Binding="{Binding AddTourVisibility}" Value="False">
+                                <Setter Property="Content">
+                                    <Setter.Value>
+                                        <TabControl>
+                                            <TabItem Header="General">
+                                                <views:General/>
+                                            </TabItem>
+                                            <TabItem Header="Route">
+                                                <views:Route />
+                                            </TabItem>
+                                            <TabItem Header="Misc">
+                                                <views:Misc />
+                                            </TabItem>
+                                        </TabControl>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </ContentControl.Style>
+            </ContentControl>
         </Grid>
     </DockPanel>
 </Window>

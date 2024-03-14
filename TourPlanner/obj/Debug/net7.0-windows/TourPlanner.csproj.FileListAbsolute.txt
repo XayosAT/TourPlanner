@@ -26,3 +26,5 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-window
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\General.baml
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\Misc.g.cs
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\Misc.baml
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddTourControl.g.cs
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddTourControl.baml

@@ -1,7 +1,8 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
-using TourPlanner.Model;
+using System.Windows.Input;
+using TourPlanner.Models;
 
 namespace TourPlanner;
 
@@ -57,6 +58,23 @@ public class MainViewModel : INotifyPropertyChanged
             OnPropertyChanged();
         }
     }
+    
+    private bool _addTourVisibility;
+    
+    public bool AddTourVisibility
+    {
+        get => _addTourVisibility;
+        set
+        {
+            if (_addTourVisibility != value)
+            {
+                _addTourVisibility = value;
+                OnPropertyChanged();
+            }
+        }
+    }   
+    
+    
     
 
     public event PropertyChangedEventHandler? PropertyChanged;

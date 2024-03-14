@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System;
 
-namespace TourPlanner.Model;
+namespace TourPlanner.Models;
 
 public class Tour : INotifyPropertyChanged
 {
