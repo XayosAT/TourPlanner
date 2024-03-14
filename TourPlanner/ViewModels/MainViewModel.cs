@@ -11,6 +11,9 @@ public class MainViewModel : INotifyPropertyChanged
     
     private Tour _selectedTour;
     public ObservableCollection<Tour> Tours { get; set; }
+    public ICommand ShowAddTourFormCommand { get; set; }
+    public ICommand AddTourCommand { get; set; }
+    public ICommand CancelAddTourCommand { get; set; }
 
     public MainViewModel()
     {
@@ -18,6 +21,9 @@ public class MainViewModel : INotifyPropertyChanged
         // Populate Tours collection here
         LoadTours();
         SelectedTour = Tours[0];
+        ShowAddTourFormCommand = new RelayCommand(ShowAddTourFormAction);
+        AddTourCommand = new RelayCommand(AddTourAction);
+        CancelAddTourCommand = new RelayCommand(CancelAddTourAction);
     }
 
     private void LoadTours()
@@ -48,7 +54,26 @@ public class MainViewModel : INotifyPropertyChanged
         Tours[1].AddDemoLogs();
           
     }
-    
+    private void ShowAddTourFormAction()
+    {
+        ShowAddTourForm = true;
+    }
+
+    private void AddTourAction()
+    {
+        // Add logic to create and add new tour
+        // For example:
+        Tours.Add(new Tour());
+
+        // Reset form visibility
+        ShowAddTourForm = false;
+    }
+
+    private void CancelAddTourAction()
+    {
+        // Reset form visibility
+        ShowAddTourForm = false;
+    }
     public Tour SelectedTour
     {
         get => _selectedTour;
@@ -59,20 +84,20 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
     
-    private bool _addTourVisibility;
     
-    public bool AddTourVisibility
+    private bool _showAddTourForm;
+    public bool ShowAddTourForm
     {
-        get => _addTourVisibility;
+        get { return _showAddTourForm; }
         set
         {
-            if (_addTourVisibility != value)
+            if (_showAddTourForm != value)
             {
-                _addTourVisibility = value;
-                OnPropertyChanged();
+                _showAddTourForm = value;
+                OnPropertyChanged(nameof(ShowAddTourForm));
             }
         }
-    }   
+    }
     
     
     

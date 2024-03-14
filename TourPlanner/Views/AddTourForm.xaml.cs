@@ -2,9 +2,9 @@ using System.Windows.Controls;
 
 namespace TourPlanner.Views;
 
-public partial class AddTourControl : UserControl
+public partial class AddTourForm : UserControl
 {
-    public AddTourControl()
+    public AddTourForm()
     {
         InitializeComponent();
     }

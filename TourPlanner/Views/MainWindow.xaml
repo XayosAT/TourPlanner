@@ -43,7 +43,7 @@
                         </Grid.ColumnDefinitions>
             
                         <!-- Button "+" in the first column -->
-                        <Button Content="+" Grid.Column="0" Margin="0,5,1,5" /> <!-- Click="AddTour" -->
+                        <Button Content="+" Grid.Column="0" Margin="0,5,1,5" Command="{Binding ShowAddTourFormCommand}" />
                         <!-- Button "-" in the second column -->
                         <Button Content="-" Grid.Column="1" Margin="0,5,1,5" /> <!-- Click="DeleteTour" -->
                         <!-- Button "..." in the third column -->
@@ -73,15 +73,15 @@
                     <Style TargetType="ContentControl">
                         <Style.Triggers>
                             <!-- Trigger to show AddTourControl when AddTourVisibility property is set to true -->
-                            <DataTrigger Binding="{Binding AddTourVisibility}" Value="True">
+                            <DataTrigger Binding="{Binding ShowAddTourForm}" Value="True">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <views:AddTourControl />
+                                        <views:AddTourForm />
                                     </Setter.Value>
                                 </Setter>
                             </DataTrigger>
                             <!-- Default trigger to show the TabControl -->
-                            <DataTrigger Binding="{Binding AddTourVisibility}" Value="False">
+                            <DataTrigger Binding="{Binding ShowAddTourForm}" Value="False">
                                 <Setter Property="Content">
                                     <Setter.Value>
                                         <TabControl>
