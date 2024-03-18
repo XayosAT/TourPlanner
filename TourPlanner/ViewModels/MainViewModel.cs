@@ -1,19 +1,27 @@
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using TourPlanner.Models;
 
-namespace TourPlanner;
+namespace TourPlanner.ViewModels;
 
 public class MainViewModel : INotifyPropertyChanged
 {
     
     private Tour _selectedTour;
+    private Tour _newTour = new Tour();
+    private TourLogs _newLog = new TourLogs();
     public ObservableCollection<Tour> Tours { get; set; }
     public ICommand ShowAddTourFormCommand { get; set; }
+    public ICommand ShowAddLogFormCommand { get; set; }
     public ICommand AddTourCommand { get; set; }
     public ICommand CancelAddTourCommand { get; set; }
+    public ICommand CancelAddLogCommand { get; set; }
+    public ICommand DeleteTourCommand { get; set; }
+    public ICommand AddLogCommand { get; set; }
+    
 
     public MainViewModel()
     {
@@ -22,8 +30,12 @@ public class MainViewModel : INotifyPropertyChanged
         LoadTours();
         SelectedTour = Tours[0];
         ShowAddTourFormCommand = new RelayCommand(ShowAddTourFormAction);
+        ShowAddLogFormCommand = new RelayCommand(ShowAddLogFormAction);
         AddTourCommand = new RelayCommand(AddTourAction);
         CancelAddTourCommand = new RelayCommand(CancelAddTourAction);
+        CancelAddLogCommand = new RelayCommand(CancelAddLogAction);
+        DeleteTourCommand = new RelayCommand(DeleteTourAction);
+        AddLogCommand = new RelayCommand(AddLogAction);
     }
 
     private void LoadTours()
@@ -58,13 +70,17 @@ public class MainViewModel : INotifyPropertyChanged
     {
         ShowAddTourForm = true;
     }
+    
+    private void ShowAddLogFormAction()
+    {
+        ShowAddLogForm = true;
+    }
 
     private void AddTourAction()
     {
-        // Add logic to create and add new tour
-        // For example:
-        Tours.Add(new Tour());
-
+        
+        Tours.Add(NewTour);
+        NewTour.Clear();
         // Reset form visibility
         ShowAddTourForm = false;
     }
@@ -84,6 +100,50 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
     
+    private void DeleteTourAction()
+    {
+        Tours.Remove(SelectedTour);
+    }
+    
+    private void AddLogAction()
+    {
+        //print log to console
+        Console.WriteLine("Date: " + NewLog.Date);
+        Console.WriteLine("TotalTime: " + NewLog.TotalTime);
+        Console.WriteLine("Distance: " +  NewLog.TotalDistance);
+        
+        SelectedTour.Logs.Add(NewLog);
+        NewLog.Clear();
+        // Reset form visibility
+        ShowAddLogForm = false;
+    }
+    
+    private void CancelAddLogAction()
+    {
+        // Reset form visibility
+        ShowAddLogForm = false;
+    }
+    
+    public TourLogs NewLog
+    {
+        get => _newLog;
+        set
+        {
+            _newLog = value;
+            OnPropertyChanged();
+        }
+    }
+    
+    public Tour NewTour
+    {
+        get => _newTour;
+        set
+        {
+            _newTour = value;
+            OnPropertyChanged();
+        }
+    }
+    
     
     private bool _showAddTourForm;
     public bool ShowAddTourForm
@@ -99,6 +159,20 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
     
+    private bool _showAddLogForm;
+    
+    public bool ShowAddLogForm
+    {
+        get { return _showAddLogForm; }
+        set
+        {
+            if (_showAddLogForm != value)
+            {
+                _showAddLogForm = value;
+                OnPropertyChanged(nameof(ShowAddLogForm));
+            }
+        }
+    }
     
     
 

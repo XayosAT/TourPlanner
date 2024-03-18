@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System;
+using System.Windows.Media;
 
 namespace TourPlanner.Models;
 
@@ -13,8 +14,8 @@ public class Tour : INotifyPropertyChanged
         Bicycle,
         Foot
     }
-    
-    public ObservableCollection<TourLogs> Logs { get; set; } = new ObservableCollection<TourLogs>();
+
+    private ObservableCollection<TourLogs> _logs = new ObservableCollection<TourLogs>();
     
     private string _name;
     private string _description;
@@ -25,6 +26,15 @@ public class Tour : INotifyPropertyChanged
     private float _time;
     private string _imagePath;
     
+    public ObservableCollection<TourLogs> Logs
+    {
+        get => this._logs;
+        set
+        {
+            this._logs = value;
+            this.OnPropertyChanged();
+        }
+    }
     
 
     public string Name
@@ -128,7 +138,17 @@ public class Tour : INotifyPropertyChanged
      
     }
     
-    
+    public void Clear ()
+    {
+        this.Name = "";
+        this.Description = "";
+        this.StartLocation = "";
+        this.EndLocation = "";
+        this.Type = TransportType.Car;
+        this.Distance = 0;
+        this.Time = 0;
+        this.ImagePath = "";
+    }
     
     
     public event PropertyChangedEventHandler? PropertyChanged;

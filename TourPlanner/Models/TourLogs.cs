@@ -85,6 +85,15 @@ public class TourLogs : INotifyPropertyChanged
         }
     }
     
+    public void Clear()
+    {
+        this.Date = null;
+        this.TotalTime = 0;
+        this.Comment = null;
+        this.Difficulty = 0;
+        this.TotalDistance = 0;
+        this.Rating = 0;
+    }
     
     
     
