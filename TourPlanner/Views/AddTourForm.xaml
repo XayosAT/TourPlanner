@@ -5,6 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:TourPlanner.Views"
              xmlns:viewModels="clr-namespace:TourPlanner.ViewModels"
+             xmlns:models="clr-namespace:TourPlanner.Models"
+             xmlns:System="clr-namespace:System;assembly=System.Runtime"
+             xmlns:enums="clr-namespace:TourPlanner.Enums"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
@@ -25,6 +28,12 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        <ObjectDataProvider x:Key="TransportTypeProvider" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="enums:TransportType"/>
+            </ObjectDataProvider.MethodParameters>
+            
+        </ObjectDataProvider>
     </UserControl.Resources>
     
     <Grid Margin="10">
@@ -59,14 +68,11 @@
         <Label Grid.Row="3" Grid.Column="0" Content="End Location:" VerticalAlignment="Center"/>
         <TextBox Grid.Row="3" Grid.Column="1" Width="200" Text="{Binding NewTour.EndLocation}" VerticalAlignment="Center" Margin="5"/>
 
-        <!--
-        <Label Grid.Row="4" Grid.Column="0" Content="Type:" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="4" Grid.Column="1" Width="200" SelectedItem="{Binding NewTour.Type}" VerticalAlignment="Center" Margin="5">
-            <ComboBoxItem Content="Bicycle"/>
-            <ComboBoxItem Content="Car"/>
-            <ComboBoxItem Content="Foot"/>
+        <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:" VerticalAlignment="Center"/>
+        <ComboBox ItemsSource="{Binding Source={StaticResource TransportTypeProvider}}"
+                    SelectedItem="{Binding NewTour.TransportType, Mode=TwoWay}"
+                    Grid.Row="4" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
         </ComboBox>
-        -->
         
         <Label Grid.Row="5" Grid.Column="0" Content="Distance:" VerticalAlignment="Center"/>
         <TextBox Grid.Row="5" Grid.Column="1" Width="200" Text="{Binding NewTour.Distance}" VerticalAlignment="Center" Margin="5"/>

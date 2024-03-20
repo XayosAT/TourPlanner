@@ -3,17 +3,13 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System;
 using System.Windows.Media;
+using TourPlanner.Enums;
 
 namespace TourPlanner.Models;
 
 public class Tour : INotifyPropertyChanged
 {
-    public enum TransportType
-    {
-        Car,
-        Bicycle,
-        Foot
-    }
+    
 
     private ObservableCollection<TourLogs> _logs = new ObservableCollection<TourLogs>();
     

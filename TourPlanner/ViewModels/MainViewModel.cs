@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using TourPlanner.Models;
+using TourPlanner;
+using TourPlanner.Enums;
 
 namespace TourPlanner.ViewModels;
 
 public class MainViewModel : INotifyPropertyChanged
 {
-    
     private Tour _selectedTour;
     private Tour _newTour = new Tour();
     private TourLogs _newLog = new TourLogs();
@@ -46,7 +47,7 @@ public class MainViewModel : INotifyPropertyChanged
             Description = "Tour 1 Description",
             StartLocation = "Start 1",
             EndLocation = "End 1",
-            Type = Tour.TransportType.Car,
+            Type = TransportType.Bicycle,
             Distance = 100,
             Time = 60,
             ImagePath = "Path to Image 1"
@@ -57,7 +58,7 @@ public class MainViewModel : INotifyPropertyChanged
             Description = "Tour 2 Description",
             StartLocation = "Start 2",
             EndLocation = "End 2",
-            Type = Tour.TransportType.Bicycle,
+            Type = TransportType.Foot,
             Distance = 200,
             Time = 120,
             ImagePath = "Path to Image 2"
@@ -80,7 +81,7 @@ public class MainViewModel : INotifyPropertyChanged
     {
         
         Tours.Add(NewTour);
-        NewTour.Clear();
+        NewTour = new Tour();
         // Reset form visibility
         ShowAddTourForm = false;
     }
@@ -113,7 +114,7 @@ public class MainViewModel : INotifyPropertyChanged
         Console.WriteLine("Distance: " +  NewLog.TotalDistance);
         
         SelectedTour.Logs.Add(NewLog);
-        NewLog.Clear();
+        NewLog =  new TourLogs();
         // Reset form visibility
         ShowAddLogForm = false;
     }
