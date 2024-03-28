@@ -3,7 +3,6 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-window
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\TourPlanner.runtimeconfig.json
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\TourPlanner.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\TourPlanner.pdb
-C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.csproj.AssemblyReference.cache
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\App.g.cs
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner_MarkupCompile.cache
@@ -30,3 +29,4 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-window
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddTourForm.baml
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddLogForm.g.cs
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddLogForm.baml
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.sourcelink.json

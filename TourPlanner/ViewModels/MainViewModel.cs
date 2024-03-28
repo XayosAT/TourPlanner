@@ -12,6 +12,7 @@ namespace TourPlanner.ViewModels;
 public class MainViewModel : INotifyPropertyChanged
 {
     private Tour _selectedTour;
+    private TourLogs _selectedLog;
     private Tour _newTour = new Tour();
     private TourLogs _newLog = new TourLogs();
     public ObservableCollection<Tour> Tours { get; set; }
@@ -22,6 +23,7 @@ public class MainViewModel : INotifyPropertyChanged
     public ICommand CancelAddLogCommand { get; set; }
     public ICommand DeleteTourCommand { get; set; }
     public ICommand AddLogCommand { get; set; }
+    public ICommand DeleteLogCommand { get; set; }
     
 
     public MainViewModel()
@@ -37,6 +39,7 @@ public class MainViewModel : INotifyPropertyChanged
         CancelAddLogCommand = new RelayCommand(CancelAddLogAction);
         DeleteTourCommand = new RelayCommand(DeleteTourAction);
         AddLogCommand = new RelayCommand(AddLogAction);
+        DeleteLogCommand = new RelayCommand(DeleteLogAction);
     }
 
     private void LoadTours()
@@ -101,6 +104,16 @@ public class MainViewModel : INotifyPropertyChanged
         }
     }
     
+    public TourLogs SelectedLog
+    {
+        get => _selectedLog;
+        set
+        {
+            _selectedLog = value;
+            OnPropertyChanged();
+        }
+    }
+    
     private void DeleteTourAction()
     {
         Tours.Remove(SelectedTour);
@@ -123,6 +136,11 @@ public class MainViewModel : INotifyPropertyChanged
     {
         // Reset form visibility
         ShowAddLogForm = false;
+    }
+    
+    private void DeleteLogAction()
+    {
+        SelectedTour.Logs.Remove(SelectedLog);
     }
     
     public TourLogs NewLog

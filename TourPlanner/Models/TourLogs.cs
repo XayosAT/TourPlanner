@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using TourPlanner.Enums;
 
 namespace TourPlanner.Models;
 
@@ -8,27 +9,13 @@ namespace TourPlanner.Models;
 public class TourLogs : INotifyPropertyChanged
 {
     
-    public enum DifficultyType
-    {
-        Easy,
-        Medium,
-        Hard
-    }
-    
-    public enum RatingType
-    {
-        Bad,
-        Good,
-        VeryGood,
-        Excellent
-    }
     
     private string? _date;
     private float _totalTime;
     private string? _comment;
-    private DifficultyType _difficulty;
+    private Difficulty _difficulty;
     private float _totalDistance;
-    private RatingType _rating; 
+    private Rating _rating; 
     
     public string? Date
     {
@@ -58,7 +45,7 @@ public class TourLogs : INotifyPropertyChanged
         }
     }
     
-    public DifficultyType Difficulty { 
+    public Difficulty Difficulty { 
         get => this._difficulty; 
         set
         {
@@ -76,7 +63,7 @@ public class TourLogs : INotifyPropertyChanged
         }
     }
     
-    public RatingType Rating { 
+    public Rating Rating { 
         get => this._rating; 
         set
         {

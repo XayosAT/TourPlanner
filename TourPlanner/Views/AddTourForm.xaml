@@ -10,7 +10,9 @@
              xmlns:enums="clr-namespace:TourPlanner.Enums"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+
     <UserControl.Resources>
+        
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#007ACC"/>
             <Setter Property="Foreground" Value="White"/>
@@ -28,12 +30,13 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <ObjectDataProvider x:Key="TransportTypeProvider" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:TransportType"/>
             </ObjectDataProvider.MethodParameters>
-            
         </ObjectDataProvider>
+        
     </UserControl.Resources>
     
     <Grid Margin="10">
@@ -86,5 +89,7 @@
             <Button Content="Ok" Command="{Binding AddTourCommand}" Width="80" Style="{StaticResource ButtonStyle}" Margin="0,0,10,0"/>
             <Button Content="Cancel" Command="{Binding CancelAddTourCommand}" Width="80" Style="{StaticResource ButtonStyle}"/>
         </StackPanel>
+        
     </Grid>
+    
 </UserControl>

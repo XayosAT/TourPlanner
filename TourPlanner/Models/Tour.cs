@@ -126,9 +126,9 @@ public class Tour : INotifyPropertyChanged
         log.Date = DateTime.Now.ToString("dd.MM.yyyy");
         log.TotalTime = new Random().Next(1, 5);
         log.Comment = "Demo Comment";
-        log.Difficulty = (TourLogs.DifficultyType)new Random().Next(0, 3);
+        log.Difficulty = (Difficulty)new Random().Next(0, 3);
         log.TotalDistance = new Random().Next(1, 5);
-        log.Rating = (TourLogs.RatingType)new Random().Next(0, 3);
+        log.Rating = (Rating)new Random().Next(0, 3);
         
         return log;
      

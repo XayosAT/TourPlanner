@@ -1,6 +1,8 @@
 namespace TourPlanner.Enums;
 
-public class Difficulty
+public enum Difficulty
 {
-    
+    Easy,
+    Medium,
+    Hard
 }

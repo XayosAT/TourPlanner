@@ -7,7 +7,10 @@
              xmlns:views="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+    
+    
     <UserControl.Resources>
+        
         <!-- Visibility Style for ShowAddLogForm=False -->
         <Style x:Key="VisibleWhenFormClosed" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -17,13 +20,15 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
+        <!-- Button Style -->
         <Style x:Key="ButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#007ACC"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderBrush" Value="#007ACC"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Segoe UI"/>
+            <Setter Property="FontFamily" Value="Segue UI"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
@@ -34,6 +39,7 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
+        
         <!-- Visibility Style for ShowAddLogForm=True -->
         <Style x:Key="VisibleWhenFormOpen" TargetType="FrameworkElement">
             <Setter Property="Visibility" Value="Collapsed"/>
@@ -43,14 +49,20 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+        
     </UserControl.Resources>
+    
+    
     <Grid>
         <!-- Elements to show when ShowAddLogForm is False -->
         <Grid Style="{StaticResource VisibleWhenFormClosed}">
+            
+            <!-- DataGrid to show the logs of the selected tour -->
             <DataGrid AutoGenerateColumns="False"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       ItemsSource="{Binding SelectedTour.Logs}"
+                      SelectedItem="{Binding SelectedLog, Mode=TwoWay}"
                       CanUserAddRows="False"
                       CanUserDeleteRows="False"
                       IsReadOnly="True"
@@ -73,18 +85,25 @@
                     <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" />
                 </DataGrid.Columns>
             </DataGrid>
-            <!-- button at the bottom right of the Route Tab -->
+            
+            <!-- add button at the bottom right of the Route Tab -->
             <Button Content="Add Log"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource ButtonStyle}"
                     Margin="0,0,10,10"
                     Command="{Binding ShowAddLogFormCommand}" />
+            <!--delete button next to the Add Log button -->
+            <Button Content="Delete Log"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Bottom"
+                    Style="{StaticResource ButtonStyle}"
+                    Margin="0,0,120,10"
+                    Command="{Binding DeleteLogCommand}" />
         </Grid>
 
         <!-- Elements to show when ShowAddLogForm is True -->
         <Grid Style="{StaticResource VisibleWhenFormOpen}">
-            <!-- Define other elements you want to show when the form is open -->
             <views:AddLogForm/>
         </Grid>
 

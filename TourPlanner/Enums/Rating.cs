@@ -1,6 +1,9 @@
 namespace TourPlanner.Enums;
 
-public class Rating
+public enum Rating
 {
-    
+    Bad,
+    Good,
+    VeryGood,
+    Excellent
 }
