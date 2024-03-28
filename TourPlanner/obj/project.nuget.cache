@@ -1,13 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BMMVDYLmkniFGNJrSoi72nEX0kvLNEcmxypNAcv2KXY9wrn1v6apVKjo+9spZQ2ntKpUlnW7sZwDTVHWKDR7RQ==",
+  "dgSpecHash": "ox1Vl3QbtDYErYLa1pnOmK+3QKhkFEdWEB+GDfck4+9xcTT6gPnjKHnEul4A9khBGjvSlfIY40ra8Ma/KVC7rw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
-  "expectedPackageFiles": [
-    "C:\\Users\\Christoph\\.nuget\\packages\\microsoft.netcore.app.ref\\7.0.17\\microsoft.netcore.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\Christoph\\.nuget\\packages\\microsoft.windowsdesktop.app.ref\\7.0.17\\microsoft.windowsdesktop.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\Christoph\\.nuget\\packages\\microsoft.aspnetcore.app.ref\\7.0.17\\microsoft.aspnetcore.app.ref.7.0.17.nupkg.sha512",
-    "C:\\Users\\Christoph\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\7.0.17\\microsoft.netcore.app.host.win-x64.7.0.17.nupkg.sha512"
-  ],
+  "expectedPackageFiles": [],
   "logs": []
 }

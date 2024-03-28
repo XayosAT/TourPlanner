@@ -29,4 +29,4 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-window
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddTourForm.baml
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddLogForm.g.cs
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\AddLogForm.baml
-C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.sourcelink.json
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.csproj.AssemblyReference.cache

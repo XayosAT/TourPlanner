@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System;
 using System.Windows.Media;
 using TourPlanner.Enums;
-
+using System.Text.RegularExpressions;
 namespace TourPlanner.Models;
 
 public class Tour : INotifyPropertyChanged
@@ -144,6 +144,26 @@ public class Tour : INotifyPropertyChanged
         this.Distance = 0;
         this.Time = 0;
         this.ImagePath = "";
+    }
+    
+    public bool HhasValidInput()
+    {
+         //if the name is null or empty or does not only contain letters and numbers return false
+         
+            if (string.IsNullOrEmpty(this.Name))
+            {
+                return false;
+            }
+            else
+            {
+                Regex regex = new Regex("^[a-zA-Z0-9]*$");
+                if (!regex.IsMatch(this.Name))
+                {
+                    return false;
+                }
+            }
+
+            return true;
     }
     
     

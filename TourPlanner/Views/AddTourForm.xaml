@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:TourPlanner.Views"
              xmlns:viewModels="clr-namespace:TourPlanner.ViewModels"
              xmlns:models="clr-namespace:TourPlanner.Models"
+             xmlns:validation="clr-namespace:TourPlanner.Validation"
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:enums="clr-namespace:TourPlanner.Enums"
              mc:Ignorable="d"
@@ -60,7 +61,24 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="Name:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Width="200" Text="{Binding NewTour.Name }" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+            <TextBox.Text>
+                <Binding Path="NewTour.Name" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TourNameValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Description:" VerticalAlignment="Center"/>
         <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding NewTour.Description}" VerticalAlignment="Center" Margin="5"/>

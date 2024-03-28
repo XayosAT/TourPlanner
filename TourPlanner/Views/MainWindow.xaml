@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:TourPlanner"
         xmlns:views="clr-namespace:TourPlanner.Views"
         xmlns:viewModels="clr-namespace:TourPlanner.ViewModels"
+        xmlns:validation="clr-namespace:TourPlanner.Validation"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     

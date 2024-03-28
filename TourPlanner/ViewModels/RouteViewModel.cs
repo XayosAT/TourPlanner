@@ -4,7 +4,7 @@ using System.Windows.Input;
 
 namespace TourPlanner.ViewModels;
 
-
+// NOT IN USE
 public class RouteViewModel : INotifyPropertyChanged
 {
     

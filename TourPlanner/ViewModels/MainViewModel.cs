@@ -82,6 +82,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void AddTourAction()
     {
+        if(NewTour.HhasValidInput()){return;}
         
         Tours.Add(NewTour);
         NewTour = new Tour();
