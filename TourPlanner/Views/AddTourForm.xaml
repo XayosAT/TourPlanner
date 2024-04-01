@@ -84,11 +84,45 @@
         <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding NewTour.Description}" VerticalAlignment="Center" Margin="5"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Start Location:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="200" Text="{Binding NewTour.StartLocation}" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+            <TextBox.Text>
+                <Binding Path="NewTour.StartLocation" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TourLocationValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
         <Label Grid.Row="3" Grid.Column="0" Content="End Location:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Width="200" Text="{Binding NewTour.EndLocation}" VerticalAlignment="Center" Margin="5"/>
-
+        <TextBox Grid.Row="3" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+            <TextBox.Text>
+                <Binding Path="NewTour.EndLocation" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TourLocationValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        
         <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:" VerticalAlignment="Center"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource TransportTypeProvider}}"
                     SelectedItem="{Binding NewTour.TransportType, Mode=TwoWay}"
@@ -96,10 +130,44 @@
         </ComboBox>
         
         <Label Grid.Row="5" Grid.Column="0" Content="Distance:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Width="200" Text="{Binding NewTour.Distance}" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="5" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+            <TextBox.Text>
+                <Binding Path="NewTour.Distance" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TourDistanceValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
         <Label Grid.Row="6" Grid.Column="0" Content="Time:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Width="200" Text="{Binding NewTour.Time}" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="6" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+            <TextBox.Text>
+                <Binding Path="NewTour.Time" UpdateSourceTrigger="PropertyChanged">
+                    <Binding.ValidationRules>
+                        <validation:TourTimeValidationRule/>
+                    </Binding.ValidationRules>
+                </Binding>
+            </TextBox.Text>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
 
         <!-- Add more fields as needed -->
 

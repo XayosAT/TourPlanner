@@ -72,3 +72,12 @@ C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPl
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.framework.legacy.dll
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.csproj.AssemblyReference.cache
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.csproj.CopyComplete
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\NUnit3.TestAdapter.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\NUnit3.TestAdapter.pdb
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.engine.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.engine.api.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.engine.core.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\testcentric.engine.metadata.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.framework.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.framework.legacy.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.csproj.CopyComplete

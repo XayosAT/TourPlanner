@@ -150,23 +150,31 @@ public class Tour : INotifyPropertyChanged
     
     public bool HasValidInput()
     {
-         //if the name is null or empty or does not only contain letters and numbers return false
-         
-            if (string.IsNullOrEmpty(this.Name))
+        return IsValidName(this.Name);
+        
+    }
+    
+    private bool IsValidName(string name)
+    {
+        //if the name is null or empty or does not only contain letters and numbers return false
+        if (string.IsNullOrEmpty(name))
+        {
+            return false;
+        }
+        else
+        {
+            Regex regex = new Regex("^[a-zA-Z0-9]*$");
+            if (!regex.IsMatch(name))
             {
                 return false;
             }
-            else
-            {
-                Regex regex = new Regex("^[a-zA-Z0-9]*$");
-                if (!regex.IsMatch(this.Name))
-                {
-                    return false;
-                }
-            }
-
-            return true;
+        }
+        return true;
     }
+    
+   
+    
+    
     
     
     public event PropertyChangedEventHandler? PropertyChanged;

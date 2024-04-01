@@ -79,7 +79,7 @@
                       ColumnWidth="*">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=\{0:d\}}" />
-                    <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime, StringFormat=\{0:hh\\:mm\}}" />
+                    <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime, StringFormat=\{0\} h}" />
                     <DataGridTextColumn Header="Total Distance" Binding="{Binding TotalDistance, StringFormat=\{0:F2\} km}" />
                     <DataGridTextColumn Header="Rating" Binding="{Binding Rating}" />
                     <DataGridTextColumn Header="Difficulty" Binding="{Binding Difficulty}" />

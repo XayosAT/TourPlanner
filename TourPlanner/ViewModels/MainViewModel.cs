@@ -82,7 +82,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void AddTourAction()
     {
-        if(NewTour.HasValidInput()){return;}
+        if(!NewTour.HasValidInput()){return;}
         
         Tours.Add(NewTour);
         NewTour = new Tour();
@@ -92,6 +92,7 @@ public class MainViewModel : INotifyPropertyChanged
 
     private void CancelAddTourAction()
     {
+        NewTour = new Tour();
         // Reset form visibility
         ShowAddTourForm = false;
     }
