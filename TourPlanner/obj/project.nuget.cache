@@ -1,8 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "ox1Vl3QbtDYErYLa1pnOmK+3QKhkFEdWEB+GDfck4+9xcTT6gPnjKHnEul4A9khBGjvSlfIY40ra8Ma/KVC7rw==",
+  "dgSpecHash": "0RWVArVUPrug8gV6i07sWFklMlzG3ju1+oVIF5HUz/u/ypSNB9QMUxhlqzGOZTJHo66kDiY0G6zozyAwD0UJEw==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
-  "expectedPackageFiles": [],
+  "projectFilePath": "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Philipp Wudernitz\\.nuget\\packages\\nunit\\4.1.0\\nunit.4.1.0.nupkg.sha512",
+    "C:\\Users\\Philipp Wudernitz\\.nuget\\packages\\nunit3testadapter\\4.5.0\\nunit3testadapter.4.5.0.nupkg.sha512"
+  ],
   "logs": []
 }

@@ -9,8 +9,6 @@ namespace TourPlanner.Models;
 
 public class Tour : INotifyPropertyChanged
 {
-    
-
     private ObservableCollection<TourLogs> _logs = new ObservableCollection<TourLogs>();
     
     private string _name;
@@ -118,17 +116,21 @@ public class Tour : INotifyPropertyChanged
         
     }
 
-    private TourLogs GetDemoLog()
+    public TourLogs GetDemoLog()
     {
         
         TourLogs log = new TourLogs();
         
         log.Date = DateTime.Now.ToString("dd.MM.yyyy");
-        log.TotalTime = new Random().Next(1, 5);
+        log.TotalTime = 5;
+        // log.TotalTime = new Random().Next(1, 5);
         log.Comment = "Demo Comment";
-        log.Difficulty = (Difficulty)new Random().Next(0, 3);
-        log.TotalDistance = new Random().Next(1, 5);
-        log.Rating = (Rating)new Random().Next(0, 3);
+        log.Difficulty = (Difficulty)1;
+        log.TotalDistance = 3;
+        log.Rating = (Rating)2;
+        // log.Difficulty = (Difficulty)new Random().Next(0, 3);
+        // log.TotalDistance = new Random().Next(1, 5);
+        // log.Rating = (Rating)new Random().Next(0, 3);
         
         return log;
      
@@ -146,7 +148,7 @@ public class Tour : INotifyPropertyChanged
         this.ImagePath = "";
     }
     
-    public bool HhasValidInput()
+    public bool HasValidInput()
     {
          //if the name is null or empty or does not only contain letters and numbers return false
          
