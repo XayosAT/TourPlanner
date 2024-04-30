@@ -130,7 +130,6 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bi
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\Microsoft.TestPlatform.Utilities.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\Microsoft.VisualStudio.TestPlatform.Common.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
-C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\NuGet.Frameworks.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\nunit.framework.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\nunit.framework.legacy.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\cs\Microsoft.TestPlatform.CoreUtilities.resources.dll
@@ -205,9 +204,11 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\ob
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.AssemblyInfoInputs.cache
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.AssemblyInfo.cs
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.csproj.CoreCompileInputs.cache
-C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.csproj.CopyComplete
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\refint\TourPlannerUnitTests.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.pdb
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.genruntimeconfig.cache
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\ref\TourPlannerUnitTests.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlannerUnitTests.sourcelink.json
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\obj\Debug\net7.0-windows\TourPlan.09DDF88B.Up2Date
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\TourPlannerUnitTests\bin\Debug\net7.0-windows\.msCoverageSourceRootsMapping_TourPlannerUnitTests

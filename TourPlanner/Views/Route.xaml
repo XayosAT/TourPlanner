@@ -57,8 +57,20 @@
         <!-- Elements to show when ShowAddLogForm is False -->
         <Grid Style="{StaticResource VisibleWhenFormClosed}">
             
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <!-- placerholder for map picture -->
+            <Image Grid.Row="0" Source="{Binding SelectedTour.ImagePath}"
+                     HorizontalAlignment="Stretch"
+                     VerticalAlignment="Stretch"
+                     Stretch="UniformToFill"/>
+            
             <!-- DataGrid to show the logs of the selected tour -->
-            <DataGrid AutoGenerateColumns="False"
+            
+            <DataGrid Grid.Row="1" AutoGenerateColumns="False"
                       HorizontalAlignment="Stretch"
                       VerticalAlignment="Stretch"
                       ItemsSource="{Binding SelectedTour.Logs}"
@@ -87,19 +99,24 @@
             </DataGrid>
             
             <!-- add button at the bottom right of the Route Tab -->
-            <Button Content="Add Log"
+            
+            <Button Grid.Row="1" Content="Add Log"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource ButtonStyle}"
                     Margin="0,0,10,10"
                     Command="{Binding ShowAddLogFormCommand}" />
+                    
+            
             <!--delete button next to the Add Log button -->
-            <Button Content="Delete Log"
+            
+            <Button Grid.Row="1" Content="Delete Log"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"
                     Style="{StaticResource ButtonStyle}"
                     Margin="0,0,120,10"
                     Command="{Binding DeleteLogCommand}" />
+                    
         </Grid>
 
         <!-- Elements to show when ShowAddLogForm is True -->

@@ -53,7 +53,7 @@ public class MainViewModel : INotifyPropertyChanged
             Type = TransportType.Bicycle,
             Distance = 100,
             Time = 60,
-            ImagePath = "Path to Image 1"
+            ImagePath = "pack://application:,,,/map.jpg"
         });
         Tours.Add(new Tour
         {
@@ -64,7 +64,7 @@ public class MainViewModel : INotifyPropertyChanged
             Type = TransportType.Foot,
             Distance = 200,
             Time = 120,
-            ImagePath = "Path to Image 2"
+            ImagePath = "pack://application:,,,/map.jpg"
         });
         Tours[0].AddDemoLogs();
         Tours[1].AddDemoLogs();

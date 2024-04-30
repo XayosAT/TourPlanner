@@ -20,6 +20,8 @@ public class Tour : INotifyPropertyChanged
     private float _time;
     private string _imagePath;
     
+    public int Id { get; set; }
+    
     public ObservableCollection<TourLogs> Logs
     {
         get => this._logs;

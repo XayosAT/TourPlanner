@@ -17,6 +17,10 @@ public class TourLogs : INotifyPropertyChanged
     private float _totalDistance;
     private Rating _rating; 
     
+    public int TourId { get; set; }
+    public Tour Tour { get; set; }
+    public int Id { get; set; }
+    
     public string? Date
     {
         get => this._date; 

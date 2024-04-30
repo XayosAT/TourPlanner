@@ -80,4 +80,5 @@ C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-window
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\testcentric.engine.metadata.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.framework.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\nunit.framework.legacy.dll
-C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.csproj.CopyComplete
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner.sourcelink.json
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlan.C0FA8D3D.Up2Date
