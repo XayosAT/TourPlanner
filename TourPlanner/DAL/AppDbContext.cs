@@ -1,26 +1,26 @@
 using Microsoft.EntityFrameworkCore;
 using TourPlanner.Models;
 
-
-namespace TourPlanner.DAL;
-
-public class AppDbContext : DbContext
+namespace TourPlanner.DAL
 {
-    public DbSet<Tour> Tours { get; set; }
-    public DbSet<TourLogs> Logs { get; set; }
+    public class AppDbContext : DbContext
+    {
+        public DbSet<Tour> Tours { get; set; }
+        public DbSet<TourLogs> Logs { get; set; }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        //optionsBuilder.UseNpgsql("CONNECTION_STRING"); //TODO: Add connection string
-        optionsBuilder.UseInMemoryDatabase("TestDb");
-    }
-    
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        //define the relation between Tour and TourLogs. A Tour can have multiple TourLogs
-        modelBuilder.Entity<Tour>()
-                    .HasMany(t => t.Logs)
-                    .WithOne(l => l.Tour)
-                    .HasForeignKey(l => l.TourId);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            // Replace with your actual PostgreSQL connection string
+            optionsBuilder.UseNpgsql("Host=localhost;Database=tourplanner;Username=postgres;Password=postgres");
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Tour>()
+                .HasMany(t => t.Logs)
+                .WithOne(l => l.Tour)
+                .HasForeignKey(l => l.TourId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }
