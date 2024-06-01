@@ -7,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using TourPlanner.DAL;
 using TourPlanner.Models;
 using TourPlanner.Enums;
+using TourPlanner.RESTServices;
+using TourPlanner.MapServices;
+using System.Collections.Generic;
 
 namespace TourPlanner.ViewModels
 {
@@ -54,6 +57,17 @@ namespace TourPlanner.ViewModels
 
         private async void LoadTours()
         {
+            // test openrouteservice
+            var routeService = new RouteService();
+            // var route = await routeService.GetRouteAsync("8.681495,49.41461", "8.687872,49.420318");
+            var route = await routeService.GetRouteAsync("16.407756633547216, 48.24348388094564", "16.409850252854763,48.242941593703485");
+            Console.WriteLine($"Distance: {route.distance}m, Duration: {route.duration}s, Polyline: {route.polyline}");
+            
+            // test mapbox"
+            var mapService = new MapService();
+            var mapUrl = mapService.GetStaticMapUrl(route.polyline);
+            Console.WriteLine($"Map URL: {mapUrl}");
+            
             Console.WriteLine("Loading tours");
             var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();
             Tours = new ObservableCollection<Tour>(tours);
