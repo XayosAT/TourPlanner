@@ -10,6 +10,9 @@ using TourPlanner.Enums;
 using TourPlanner.RESTServices;
 using TourPlanner.MapServices;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
+using TourPlanner.Helpers;
 
 namespace TourPlanner.ViewModels
 {
@@ -60,13 +63,32 @@ namespace TourPlanner.ViewModels
             // test openrouteservice
             var routeService = new RouteService();
             // var route = await routeService.GetRouteAsync("8.681495,49.41461", "8.687872,49.420318");
-            var route = await routeService.GetRouteAsync("16.407756633547216, 48.24348388094564", "16.409850252854763,48.242941593703485");
-            Console.WriteLine($"Distance: {route.distance}m, Duration: {route.duration}s, Polyline: {route.polyline}");
+            var route = await routeService.GetDirAsync("16.407756633547216, 48.24348388094564", "16.409850252854763, 48.242941593703485");
+            // Console.WriteLine($"Distance: {route.distance}m, Duration: {route.duration}s, Polyline: {route.polyline}");
             
-            // test mapbox"
-            var mapService = new MapService();
-            var mapUrl = mapService.GetStaticMapUrl(route.polyline);
-            Console.WriteLine($"Map URL: {mapUrl}");
+            
+            // File path for route.js
+            string pathToRouteJS = "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\Resources\\route.js";
+            
+            // add 'var directions = ' to the JSON string
+            var directionsVar = "var directions = " + route;
+            
+            // Write JSON string to the file
+            try
+            {
+                File.WriteAllText(pathToRouteJS, directionsVar);
+                Console.WriteLine("JSON string has been saved to the .js file successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+            
+            // Path to the HTML file
+            var filePath = "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\Resources\\map.html";
+        
+            // Open the HTML file in the default browser
+            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
             
             Console.WriteLine("Loading tours");
             var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();

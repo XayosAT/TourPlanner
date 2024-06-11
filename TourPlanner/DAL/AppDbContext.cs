@@ -11,7 +11,7 @@ namespace TourPlanner.DAL
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Replace with your actual PostgreSQL connection string
-            optionsBuilder.UseNpgsql("Host=localhost;Database=tourplanner;Username=postgres;Password=postgres");
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=tourplanner;Username=postgres;Password=postgres");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

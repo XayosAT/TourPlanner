@@ -5,9 +5,9 @@ services:
     container_name: postgres_container
     image: postgres:12
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: tourplannerDatabase
+      POSTGRES_USER: postgres2
+      POSTGRES_PASSWORD: postgres2
+      POSTGRES_DB: tourplanner2
       PGDATA: /data/postgres
     volumes:
       - pgdata:/data/postgres
