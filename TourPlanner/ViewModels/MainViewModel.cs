@@ -12,18 +12,35 @@ using TourPlanner.MapServices;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
+using System.Windows.Controls;
+using Microsoft.Web.WebView2.Wpf;
 using TourPlanner.Helpers;
+using TourPlanner.Views;
+
 
 namespace TourPlanner.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
         private readonly AppDbContext _context = new AppDbContext();
+        private RouteService _routeService = new RouteService();
         private Tour _selectedTour;
         private TourLogs _selectedLog;
         private Tour _newTour = new Tour();
         private TourLogs _newLog = new TourLogs();
         private ObservableCollection<Tour> _tours;
+        private WebView2 _mapWebView;
+        private Route _routeControl;
+        public Route RouteControl
+        {
+            get => _routeControl;
+            set
+            {
+                _routeControl = value;
+                OnPropertyChanged();
+            }
+        }
         public ObservableCollection<Tour> Tours
         {
             get => _tours;
@@ -31,6 +48,19 @@ namespace TourPlanner.ViewModels
             {
                 _tours = value;
                 OnPropertyChanged();
+            }
+        }
+        
+        public WebView2 MapWebView
+        {
+            get => _mapWebView;
+            set
+            {
+                if (_mapWebView != value)
+                {
+                    _mapWebView = value;
+                    OnPropertyChanged(nameof(MapWebView));
+                }
             }
         }
         
@@ -42,7 +72,23 @@ namespace TourPlanner.ViewModels
         public ICommand DeleteTourCommand { get; set; }
         public ICommand AddLogCommand { get; set; }
         public ICommand DeleteLogCommand { get; set; }
+        
+       
+        
+        string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
+        private string _pathToRouteJs;
+        private string _pathToMapHtml;
 
+        public string PathToMapHtml
+        {
+            get => _pathToMapHtml;
+            set
+            {
+                _pathToMapHtml = value;
+                OnPropertyChanged();
+            }
+        }
+        
         public MainViewModel()
         {
             Tours = new ObservableCollection<Tour>();
@@ -54,29 +100,32 @@ namespace TourPlanner.ViewModels
             DeleteTourCommand = new RelayCommand(DeleteTourAction);
             AddLogCommand = new RelayCommand(AddLogAction);
             DeleteLogCommand = new RelayCommand(DeleteLogAction);
+            _pathToRouteJs = Path.Combine(projectDirectory, "Resources", "route.js");
+            _pathToMapHtml = Path.Combine(projectDirectory, "Resources", "map.html");
+            NewTour.ImagePath = "";
             LoadTours();
-            NewTour.ImagePath = "default.jpg";
+            
         }
 
         private async void LoadTours()
         {
-            // test openrouteservice
-            var routeService = new RouteService();
-            // var route = await routeService.GetRouteAsync("8.681495,49.41461", "8.687872,49.420318");
-            var route = await routeService.GetDirAsync("16.407756633547216, 48.24348388094564", "16.409850252854763, 48.242941593703485");
-            // Console.WriteLine($"Distance: {route.distance}m, Duration: {route.duration}s, Polyline: {route.polyline}");
+            Console.WriteLine("Loading tours");
+            var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();
+            Tours = new ObservableCollection<Tour>(tours);
             
-            
-            // File path for route.js
-            string pathToRouteJS = "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\Resources\\route.js";
+        }
+        
+        public void LoadMap()
+        {
             
             // add 'var directions = ' to the JSON string
-            var directionsVar = "var directions = " + route;
+            var directionsVar = "var directions = " + SelectedTour.ImagePath;
+            Console.WriteLine(directionsVar);
             
             // Write JSON string to the file
             try
             {
-                File.WriteAllText(pathToRouteJS, directionsVar);
+                File.WriteAllText(_pathToRouteJs, directionsVar);
                 Console.WriteLine("JSON string has been saved to the .js file successfully.");
             }
             catch (Exception ex)
@@ -84,16 +133,16 @@ namespace TourPlanner.ViewModels
                 Console.WriteLine($"An error occurred: {ex.Message}");
             }
             
-            // Path to the HTML file
-            var filePath = "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\Resources\\map.html";
-        
-            // Open the HTML file in the default browser
-            Process.Start(new ProcessStartInfo(filePath) { UseShellExecute = true });
-            
-            Console.WriteLine("Loading tours");
-            var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();
-            Tours = new ObservableCollection<Tour>(tours);
-            
+            try
+            {
+                _mapWebView.CoreWebView2.Navigate(_pathToMapHtml);
+                Console.WriteLine("Navigating to HTML file: " + _pathToMapHtml);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Navigation error: {ex.Message}");
+            }
+
         }
 
         private void ShowAddTourFormAction()
@@ -109,12 +158,15 @@ namespace TourPlanner.ViewModels
         private async void AddTourAction()
         {
             if (!NewTour.HasValidInput()) { return; }
-
+            var imgPath = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation);
+            NewTour.ImagePath = imgPath;
+            SelectedTour = NewTour;
+            //NewTour.ImagePath = imgPath;
             await _context.Tours.AddAsync(NewTour);
             await _context.SaveChangesAsync();
             LoadTours();
             NewTour = new Tour();
-            NewTour.ImagePath = "default.jpg";
+            NewTour.ImagePath = "";
             ShowAddTourForm = false;
         }
 
@@ -170,6 +222,7 @@ namespace TourPlanner.ViewModels
             {
                 _selectedTour = value;
                 OnPropertyChanged();
+                LoadMap();
             }
         }
 

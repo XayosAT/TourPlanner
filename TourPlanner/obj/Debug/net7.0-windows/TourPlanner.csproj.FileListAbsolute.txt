@@ -173,3 +173,10 @@ C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPl
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\System.Text.Json.dll
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\TourPlanner_Content.g.cs
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Newtonsoft.Json.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\runtimes\win-x86\native\WebView2Loader.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\runtimes\win-x64\native\WebView2Loader.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\runtimes\win-arm64\native\WebView2Loader.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.Core.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.WinForms.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.Wpf.dll

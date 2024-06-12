@@ -93,8 +93,7 @@
                                                 <views:General/>
                                             </TabItem>
                                             <TabItem Header="Route">
-                                                <views:Route />
-                                                
+                                                <ContentPresenter Content="{Binding RouteControl}" />
                                             </TabItem>
                                             <TabItem Header="Misc">
                                                 <views:Misc />

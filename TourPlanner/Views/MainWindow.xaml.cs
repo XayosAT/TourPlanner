@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TourPlanner.ViewModels;
+using TourPlanner.Views;
 
 namespace TourPlanner
 {
@@ -24,7 +25,12 @@ namespace TourPlanner
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MainViewModel();
+            var viewModel = new MainViewModel();
+            DataContext = viewModel;
+            
+            var routeControl = new Route(viewModel);
+            viewModel.RouteControl = routeControl;
+            
         }
     }
 }
