@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Web.WebView2.Wpf;
 using TourPlanner.Helpers;
 using TourPlanner.Views;
@@ -73,11 +74,14 @@ namespace TourPlanner.ViewModels
         public ICommand AddLogCommand { get; set; }
         public ICommand DeleteLogCommand { get; set; }
         
-       
         
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
         private string _pathToRouteJs;
         private string _pathToMapHtml;
+        private string _pathToConfigFile;
+
+        private string _apiKey;
+        private string _connectionString;
 
         public string PathToMapHtml
         {
@@ -91,6 +95,13 @@ namespace TourPlanner.ViewModels
         
         public MainViewModel()
         {
+            _pathToRouteJs = Path.Combine(projectDirectory, "Resources", "route.js");
+            _pathToMapHtml = Path.Combine(projectDirectory, "Resources", "map.html");
+            _pathToConfigFile = Path.Combine(projectDirectory, "appsettings.json");
+            NewTour.ImagePath = "";
+            LoadConfig();
+            ConfigureContext();
+            ConfigureRouteService();
             Tours = new ObservableCollection<Tour>();
             ShowAddTourFormCommand = new RelayCommand(ShowAddTourFormAction);
             ShowAddLogFormCommand = new RelayCommand(ShowAddLogFormAction);
@@ -100,11 +111,31 @@ namespace TourPlanner.ViewModels
             DeleteTourCommand = new RelayCommand(DeleteTourAction);
             AddLogCommand = new RelayCommand(AddLogAction);
             DeleteLogCommand = new RelayCommand(DeleteLogAction);
-            _pathToRouteJs = Path.Combine(projectDirectory, "Resources", "route.js");
-            _pathToMapHtml = Path.Combine(projectDirectory, "Resources", "map.html");
-            NewTour.ImagePath = "";
             LoadTours();
-            
+        }
+
+        private void LoadConfig()
+        {
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile(_pathToConfigFile, optional: false, reloadOnChange: true)
+                .Build();
+
+            // Read the connection string
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
+
+            // Read the API key
+            _apiKey = configuration["ApiSettings:ApiKey"];
+        }
+        
+        private void ConfigureContext()
+        {
+            _context.Configure(_connectionString);
+        }
+
+        public void ConfigureRouteService()
+        {
+            _routeService.Configure(_apiKey);
         }
 
         private async void LoadTours()
@@ -158,7 +189,7 @@ namespace TourPlanner.ViewModels
         private async void AddTourAction()
         {
             if (!NewTour.HasValidInput()) { return; }
-            var imgPath = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation);
+            var imgPath = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation, _apiKey);
             NewTour.ImagePath = imgPath;
             SelectedTour = NewTour;
             //NewTour.ImagePath = imgPath;

@@ -8,12 +8,18 @@ namespace TourPlanner.DAL
         public DbSet<Tour> Tours { get; set; }
         public DbSet<TourLogs> Logs { get; set; }
 
+        private string _connectionString;
+        
+        public void Configure(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             // Replace with your actual PostgreSQL connection string
-            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=tourplanner;Username=postgres;Password=postgres");
+            optionsBuilder.UseNpgsql(_connectionString);
         }
-
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Tour>()
