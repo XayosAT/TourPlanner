@@ -19,6 +19,7 @@ using Microsoft.Web.WebView2.Wpf;
 using TourPlanner.Helpers;
 using TourPlanner.Views;
 using log4net;
+using TourPlanner.Helpers;
 
 
 namespace TourPlanner.ViewModels
@@ -130,29 +131,32 @@ namespace TourPlanner.ViewModels
 
             // Read the API key
             _apiKey = configuration["ApiSettings:ApiKey"];
+            
+            log.Info("Configuration loaded");
         }
         
         private void ConfigureContext()
         {
             _context.Configure(_connectionString);
+            log.Info("Configured context");
         }
 
         public void ConfigureRouteService()
         {
             _routeService.Configure(_apiKey);
+            log.Info("Configured route service");
         }
 
         private async void LoadTours()
         {
-            Console.WriteLine("Loading tours");
             var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();
             Tours = new ObservableCollection<Tour>(tours);
+            log.Info("Loaded tours");
             
         }
         
         public void LoadMap()
         {
-            
             // add 'var directions = ' to the JSON string
             var directionsVar = "var directions = " + SelectedTour.ImagePath; 
             
@@ -161,52 +165,65 @@ namespace TourPlanner.ViewModels
             {
                 File.WriteAllText(_pathToRouteJs, directionsVar);
                 Console.WriteLine("JSON string has been saved to the .js file successfully.");
+                log.Info("JSON string has been saved to the .js file successfully.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred: {ex.Message}");
+                log.Error($"An error occurred: {ex.Message}");
             }
             
             try
             {
                 _mapWebView.CoreWebView2.Navigate(_pathToMapHtml);
+                log.Info("Navigating to map.html");
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Navigation error: {ex.Message}");
+                log.Error($"Navigation error: {ex.Message}");
             }
 
         }
 
         private void ShowAddTourFormAction()
         {
+            log.Info("Showing add tour form");
             ShowAddTourForm = true;
         }
 
         private void ShowAddLogFormAction()
         {
+            log.Info("Showing add log form");
             ShowAddLogForm = true;
         }
 
         private async void AddTourAction()
         {
             if (!NewTour.HasValidInput()) { return; }
-            var imgPath = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation);
-            NewTour.ImagePath = imgPath;
+            var jsonResponse = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation);
+            var result = RouteDecoder.GetDistanceAndDuration(jsonResponse);
+            // round to 2 decimal places
+            NewTour.Distance = (float)Math.Round(result.Item1 / 1000, 2);
+            NewTour.Time = (float)Math.Round(result.Item2 / 3600, 2);
+            NewTour.ImagePath = jsonResponse;
             SelectedTour = NewTour;
-            //NewTour.ImagePath = imgPath;
             await _context.Tours.AddAsync(NewTour);
             await _context.SaveChangesAsync();
             LoadTours();
             NewTour = new Tour();
             NewTour.ImagePath = "";
             ShowAddTourForm = false;
+            
+            // added tour log
+            log.Info($"Added new tour: {NewTour.Name}");
         }
 
         private void CancelAddTourAction()
         {
             NewTour = new Tour();
             ShowAddTourForm = false;
+            log.Info("Cancelled adding new tour");
         }
 
         private async void DeleteTourAction()
@@ -215,6 +232,7 @@ namespace TourPlanner.ViewModels
             {
                 _context.Tours.Remove(SelectedTour);
                 await _context.SaveChangesAsync();
+                log.Info($"Deleted tour: {SelectedTour.Name}");
                 LoadTours();
             }
         }
@@ -226,6 +244,7 @@ namespace TourPlanner.ViewModels
                 NewLog.TourId = SelectedTour.Id;
                 await _context.Logs.AddAsync(NewLog);
                 await _context.SaveChangesAsync();
+                log.Info($"Added new log to tour: {SelectedTour.Name}");
                 LoadTours();
                 NewLog = new TourLogs();
                 ShowAddLogForm = false;
@@ -236,6 +255,7 @@ namespace TourPlanner.ViewModels
         {
             NewLog = new TourLogs();
             ShowAddLogForm = false;
+            log.Info("Cancelled adding new log");
         }
 
         private async void DeleteLogAction()
@@ -244,6 +264,7 @@ namespace TourPlanner.ViewModels
             {
                 _context.Logs.Remove(SelectedLog);
                 await _context.SaveChangesAsync();
+                log.Info($"Deleted log from tour: {SelectedTour.Name}");
                 LoadTours();
             }
         }
@@ -254,6 +275,7 @@ namespace TourPlanner.ViewModels
             set
             {
                 _selectedTour = value;
+                log.Info($"Selected tour: {value.Name}");
                 OnPropertyChanged();
                 LoadMap();
             }
@@ -265,6 +287,7 @@ namespace TourPlanner.ViewModels
             set
             {
                 _selectedLog = value;
+                log.Info($"Selected log: {value.Date}");
                 OnPropertyChanged();
             }
         }

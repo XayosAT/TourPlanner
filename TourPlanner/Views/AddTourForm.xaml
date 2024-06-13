@@ -129,46 +129,6 @@
                     Grid.Row="4" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
         </ComboBox>
         
-        <Label Grid.Row="5" Grid.Column="0" Content="Distance:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="5" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
-            <TextBox.Text>
-                <Binding Path="NewTour.Distance" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validation:TourDistanceValidationRule/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-            <TextBox.Style>
-                <Style TargetType="TextBox">
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-
-        <Label Grid.Row="6" Grid.Column="0" Content="Time:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="6" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
-            <TextBox.Text>
-                <Binding Path="NewTour.Time" UpdateSourceTrigger="PropertyChanged">
-                    <Binding.ValidationRules>
-                        <validation:TourTimeValidationRule/>
-                    </Binding.ValidationRules>
-                </Binding>
-            </TextBox.Text>
-            <TextBox.Style>
-                <Style TargetType="TextBox">
-                    <Style.Triggers>
-                        <Trigger Property="Validation.HasError" Value="True">
-                            <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self}, Path = (Validation.Errors)/ErrorContent}"/>
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
-
         <!-- Add more fields as needed -->
 
         <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Grid.Column="0" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">

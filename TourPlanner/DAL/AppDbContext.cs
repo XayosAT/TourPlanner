@@ -1,5 +1,7 @@
+using log4net;
 using Microsoft.EntityFrameworkCore;
 using TourPlanner.Models;
+using TourPlanner.ViewModels;
 
 namespace TourPlanner.DAL
 {
@@ -10,6 +12,8 @@ namespace TourPlanner.DAL
 
         private string _connectionString;
         
+        private static readonly ILog log = LogManager.GetLogger(typeof(AppDbContext));
+        
         public void Configure(string connectionString)
         {
             _connectionString = connectionString;
@@ -19,6 +23,7 @@ namespace TourPlanner.DAL
         {
             // Replace with your actual PostgreSQL connection string
             optionsBuilder.UseNpgsql(_connectionString);
+            log.Info("Configured DbContext");
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,6 +32,8 @@ namespace TourPlanner.DAL
                 .WithOne(l => l.Tour)
                 .HasForeignKey(l => l.TourId)
                 .OnDelete(DeleteBehavior.Cascade);
+            
+            log.Info("Created model relationships");
         }
     }
 }

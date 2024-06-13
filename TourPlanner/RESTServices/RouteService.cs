@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 using System.Linq;
+using log4net;
 
 namespace TourPlanner.RESTServices;
 
 public class RouteService
 {
+    private static readonly ILog log = LogManager.GetLogger(typeof(RouteService));
     private static readonly string _baseUrl = "https://api.openrouteservice.org/v2/directions/driving-car";
     private static string _apiKey;
 
@@ -29,10 +31,13 @@ public class RouteService
             HttpResponseMessage response = await client.GetAsync(requestUrl);
 
             if (!response.IsSuccessStatusCode)
+            {
+                log.Error("Error retrieving route information");
                 throw new Exception("Error retrieving route information");
+            }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
-            
+            log.Info("Route information retrieved successfully");
             return jsonResponse;
         }
     }
@@ -45,7 +50,10 @@ public class RouteService
             HttpResponseMessage response = await client.GetAsync(requestUrl);
 
             if (!response.IsSuccessStatusCode)
+            {
+                log.Error("Error retrieving coordinates");
                 throw new Exception("Error retrieving coordinates");
+            }
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
             var json = JObject.Parse(jsonResponse);
@@ -59,7 +67,7 @@ public class RouteService
             string formattedLng = lng.ToString(CultureInfo.InvariantCulture);
 
             
-
+            log.Info("Coordinates retrieved successfully");
             return (formattedLat, formattedLng);
             
         }
