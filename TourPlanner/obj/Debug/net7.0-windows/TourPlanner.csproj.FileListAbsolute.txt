@@ -186,3 +186,6 @@ C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPl
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.Core.dll
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.WinForms.dll
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\Microsoft.Web.WebView2.Wpf.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\log4net.dll
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\TourPlanner.dll.config
+C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\log4net.config

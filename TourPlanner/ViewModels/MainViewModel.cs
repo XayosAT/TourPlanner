@@ -18,12 +18,14 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Web.WebView2.Wpf;
 using TourPlanner.Helpers;
 using TourPlanner.Views;
+using log4net;
 
 
 namespace TourPlanner.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(MainViewModel));
         private readonly AppDbContext _context = new AppDbContext();
         private RouteService _routeService = new RouteService();
         private Tour _selectedTour;
@@ -95,6 +97,8 @@ namespace TourPlanner.ViewModels
         
         public MainViewModel()
         {
+            log.Debug("Initializing MainViewModel");
+            
             _pathToRouteJs = Path.Combine(projectDirectory, "Resources", "route.js");
             _pathToMapHtml = Path.Combine(projectDirectory, "Resources", "map.html");
             _pathToConfigFile = Path.Combine(projectDirectory, "appsettings.json");
@@ -150,8 +154,7 @@ namespace TourPlanner.ViewModels
         {
             
             // add 'var directions = ' to the JSON string
-            var directionsVar = "var directions = " + SelectedTour.ImagePath;
-            Console.WriteLine(directionsVar);
+            var directionsVar = "var directions = " + SelectedTour.ImagePath; 
             
             // Write JSON string to the file
             try
@@ -167,7 +170,6 @@ namespace TourPlanner.ViewModels
             try
             {
                 _mapWebView.CoreWebView2.Navigate(_pathToMapHtml);
-                Console.WriteLine("Navigating to HTML file: " + _pathToMapHtml);
             }
             catch (Exception ex)
             {
@@ -189,7 +191,7 @@ namespace TourPlanner.ViewModels
         private async void AddTourAction()
         {
             if (!NewTour.HasValidInput()) { return; }
-            var imgPath = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation, _apiKey);
+            var imgPath = await _routeService.GetDirAsync(NewTour.StartLocation, NewTour.EndLocation);
             NewTour.ImagePath = imgPath;
             SelectedTour = NewTour;
             //NewTour.ImagePath = imgPath;

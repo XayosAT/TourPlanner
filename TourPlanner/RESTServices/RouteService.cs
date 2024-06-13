@@ -18,14 +18,14 @@ public class RouteService
         _apiKey = apiKey;
     }
 
-    public async Task<string> GetDirAsync(string from, string to, string apiKey)
+    public async Task<string> GetDirAsync(string from, string to)
     {
         using (HttpClient client = new HttpClient())
         {
-            var fromCoords = await GetCoordinatesAsync(from, apiKey);
-            var toCoords = await GetCoordinatesAsync(to, apiKey);
+            var fromCoords = await GetCoordinatesAsync(from);
+            var toCoords = await GetCoordinatesAsync(to);
             var requestUrl =
-                $"{_baseUrl}?api_key={apiKey}&start={fromCoords.Item2},{fromCoords.Item1}&end={toCoords.Item2},{toCoords.Item1}";
+                $"{_baseUrl}?api_key={_apiKey}&start={fromCoords.Item2},{fromCoords.Item1}&end={toCoords.Item2},{toCoords.Item1}";
             HttpResponseMessage response = await client.GetAsync(requestUrl);
 
             if (!response.IsSuccessStatusCode)
@@ -37,11 +37,11 @@ public class RouteService
         }
     }
     
-    private async Task<(string,string)> GetCoordinatesAsync(string address, string apiKey)
+    private async Task<(string,string)> GetCoordinatesAsync(string address)
     {
         using (HttpClient client = new HttpClient())
         {
-            var requestUrl = $"https://api.openrouteservice.org/geocode/search?api_key={apiKey}&text={address}";
+            var requestUrl = $"https://api.openrouteservice.org/geocode/search?api_key={_apiKey}&text={address}";
             HttpResponseMessage response = await client.GetAsync(requestUrl);
 
             if (!response.IsSuccessStatusCode)
