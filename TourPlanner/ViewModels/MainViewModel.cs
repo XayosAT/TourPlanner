@@ -19,6 +19,7 @@ using Microsoft.Web.WebView2.Wpf;
 using TourPlanner.Helpers;
 using TourPlanner.Views;
 using log4net;
+using Microsoft.Web.WebView2.Core;
 using TourPlanner.Helpers;
 
 
@@ -76,6 +77,7 @@ namespace TourPlanner.ViewModels
         public ICommand DeleteTourCommand { get; set; }
         public ICommand AddLogCommand { get; set; }
         public ICommand DeleteLogCommand { get; set; }
+        public ICommand GenerateReportCommand { get; set; }
         
         
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -116,7 +118,25 @@ namespace TourPlanner.ViewModels
             DeleteTourCommand = new RelayCommand(DeleteTourAction);
             AddLogCommand = new RelayCommand(AddLogAction);
             DeleteLogCommand = new RelayCommand(DeleteLogAction);
+            GenerateReportCommand = new RelayCommand(async () => await GenerateReportForFirstTourAsync());
             LoadTours();
+            
+
+        }
+        
+        public async Task GenerateReportForFirstTourAsync()
+        {
+            Console.WriteLine("Generating report for the first tour...");
+            if (Tours != null && Tours.Count > 0)
+            {
+                Console.WriteLine("Tours available. Generating report...");
+                Tour firstTour = Tours[0];
+                await CreateReportAsync(firstTour);
+            }
+            else
+            {
+                log.Info("No tours available to generate a report.");
+            }
         }
 
         private void LoadConfig()
@@ -152,7 +172,10 @@ namespace TourPlanner.ViewModels
             var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();
             Tours = new ObservableCollection<Tour>(tours);
             log.Info("Loaded tours");
-            
+            if (Tours.Count > 0)
+            {
+                SelectedTour = Tours[0];
+            }
         }
         
         public void LoadMap()
@@ -337,6 +360,48 @@ namespace TourPlanner.ViewModels
                     _showAddLogForm = value;
                     OnPropertyChanged(nameof(ShowAddLogForm));
                 }
+            }
+        }
+        
+        public async Task CreateReportAsync(Tour tour)
+        {
+            // Capture the map image
+            string mapImagePath = await CaptureMapAsync();
+
+            // Generate the PDF report
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string fileName = "TourReport.pdf";
+            string filePath = Path.Combine(documentsPath, fileName);
+
+            await ReportGenerator.GeneratePDFReportAsync(tour, filePath, mapImagePath);
+
+            Console.WriteLine($"PDF report generated at: {filePath}");
+        }
+        
+        public async Task<string> CaptureMapAsync()
+        {
+            if (MapWebView?.CoreWebView2 == null)
+            {
+                log.Debug("MapWebView or CoreWebView2 is not initialized.");
+                return null;
+            }
+
+            try
+            {   
+                Console.WriteLine("Capturing map...");
+                string imagePath = Path.Combine(projectDirectory, "Resources", "mapCapture.png");
+                Console.WriteLine(imagePath);
+                using (var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write))
+                {
+                    await MapWebView.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, fileStream);
+                }
+
+                return imagePath;
+            }
+            catch (Exception ex)
+            {
+                log.Debug($"Exception in CaptureMapAsync: {ex.Message}");
+                return null;
             }
         }
 

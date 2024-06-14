@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\TourPlanner.csproj": {}
+    "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\TourPlanner.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\TourPlanner.csproj": {
+    "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\TourPlanner.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
+        "projectUniqueName": "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
         "projectName": "TourPlanner",
-        "projectPath": "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
-        "packagesPath": "C:\\Users\\Philipp Wudernitz\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Philipp Wudernitz\\OneDrive\\Desktop\\SWEN_Tour_Planner\\TourPlanner\\TourPlanner\\obj\\",
+        "projectPath": "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\TourPlanner.csproj",
+        "packagesPath": "C:\\Users\\Christoph\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Christoph\\RiderProjects\\TourPlanner\\TourPlanner\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Philipp Wudernitz\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\Christoph\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net7.0-windows"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -78,6 +76,10 @@
               "target": "Package",
               "version": "[7.0.11, )"
             },
+            "iTextSharp": {
+              "target": "Package",
+              "version": "[5.5.13.4, )"
+            },
             "log4net": {
               "target": "Package",
               "version": "[2.0.17, )"
@@ -102,7 +104,7 @@
               "privateAssets": "none"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Users\\Christoph\\.dotnet\\sdk\\8.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }
