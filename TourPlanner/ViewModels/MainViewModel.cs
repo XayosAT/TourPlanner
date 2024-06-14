@@ -374,8 +374,8 @@ namespace TourPlanner.ViewModels
             string filePath = Path.Combine(documentsPath, fileName);
 
             await ReportGenerator.GeneratePDFReportAsync(tour, filePath, mapImagePath);
-
-            Console.WriteLine($"PDF report generated at: {filePath}");
+            log.Info("PDF report generated successfully at " + filePath);
+            // Console.WriteLine($"PDF report generated at: {filePath}");
         }
         
         public async Task<string> CaptureMapAsync()
@@ -390,10 +390,11 @@ namespace TourPlanner.ViewModels
             {   
                 Console.WriteLine("Capturing map...");
                 string imagePath = Path.Combine(projectDirectory, "Resources", "mapCapture.png");
-                Console.WriteLine(imagePath);
+                // Console.WriteLine(imagePath);
                 using (var fileStream = new FileStream(imagePath, FileMode.Create, FileAccess.Write))
                 {
                     await MapWebView.CoreWebView2.CapturePreviewAsync(CoreWebView2CapturePreviewImageFormat.Png, fileStream);
+                    log.Info("Map captured successfully at " + imagePath);
                 }
 
                 return imagePath;

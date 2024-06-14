@@ -5,7 +5,10 @@ using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 using System.Text.Json;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using log4net;
+
+[assembly: InternalsVisibleTo("TourPlannerUnitTests")]
 
 namespace TourPlanner.RESTServices;
 
@@ -42,7 +45,7 @@ public class RouteService
         }
     }
     
-    private async Task<(string,string)> GetCoordinatesAsync(string address)
+    internal async Task<(string,string)> GetCoordinatesAsync(string address)
     {
         using (HttpClient client = new HttpClient())
         {
