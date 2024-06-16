@@ -15,7 +15,6 @@ namespace TourPlanner.Helpers
         {
             try
             {
-
                 Document doc = new Document(PageSize.A4, 50, 50, 50, 50);
                 PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
                 doc.Open();
@@ -59,42 +58,51 @@ namespace TourPlanner.Helpers
                     doc.Add(new Paragraph("\n")); // Adding a space
                 }
 
-                // Tour Logs Table
-                doc.Add(new Paragraph("Tour Logs", headerFont));
-                doc.Add(new Paragraph("\n")); // Adding a space
-
-                PdfPTable logsTable = new PdfPTable(6) { WidthPercentage = 100 };
-                logsTable.SetWidths(new float[] { 2, 2, 3, 2, 2, 2 });
-
-                // Table headers
-                AddCellToHeader(logsTable, "Date", tableHeaderFont);
-                AddCellToHeader(logsTable, "Total Time (hours)", tableHeaderFont);
-                AddCellToHeader(logsTable, "Comment", tableHeaderFont);
-                AddCellToHeader(logsTable, "Difficulty", tableHeaderFont);
-                AddCellToHeader(logsTable, "Total Distance (km)", tableHeaderFont);
-                AddCellToHeader(logsTable, "Rating", tableHeaderFont);
-
-                // Table rows
-                foreach (var log in tour.Logs)
+                // Check if there are tour logs
+                if (tour.Logs.Any())
                 {
-                    AddCellToBody(logsTable, log.Date, bodyFont);
-                    AddCellToBody(logsTable, log.TotalTime.ToString(), bodyFont);
-                    AddCellToBody(logsTable, log.Comment, bodyFont);
-                    AddCellToBody(logsTable, log.Difficulty.ToString(), bodyFont);
-                    AddCellToBody(logsTable, log.TotalDistance.ToString(), bodyFont);
-                    AddCellToBody(logsTable, log.Rating.ToString(), bodyFont);
+                    // Tour Logs Table
+                    doc.Add(new Paragraph("Tour Logs", headerFont));
+                    doc.Add(new Paragraph("\n")); // Adding a space
+
+                    PdfPTable logsTable = new PdfPTable(6) { WidthPercentage = 100 };
+                    logsTable.SetWidths(new float[] { 2, 2, 3, 2, 2, 2 });
+
+                    // Table headers
+                    AddCellToHeader(logsTable, "Date", tableHeaderFont);
+                    AddCellToHeader(logsTable, "Total Time (hours)", tableHeaderFont);
+                    AddCellToHeader(logsTable, "Comment", tableHeaderFont);
+                    AddCellToHeader(logsTable, "Difficulty", tableHeaderFont);
+                    AddCellToHeader(logsTable, "Total Distance (km)", tableHeaderFont);
+                    AddCellToHeader(logsTable, "Rating", tableHeaderFont);
+
+                    // Table rows
+                    foreach (var log in tour.Logs)
+                    {
+                        AddCellToBody(logsTable, log.Date, bodyFont);
+                        AddCellToBody(logsTable, log.TotalTime.ToString(), bodyFont);
+                        AddCellToBody(logsTable, log.Comment, bodyFont);
+                        AddCellToBody(logsTable, log.Difficulty.ToString(), bodyFont);
+                        AddCellToBody(logsTable, log.TotalDistance.ToString(), bodyFont);
+                        AddCellToBody(logsTable, log.Rating.ToString(), bodyFont);
+                    }
+
+                    doc.Add(logsTable);
                 }
 
-                doc.Add(logsTable);
                 doc.Close();
             }
             catch
             {
-                
+                // Handle exception (optional: log error or provide feedback)
             }
         }
         public static async Task GenerateAveragePDFReportAsync(Tour tour, string filePath)
         {
+            if (tour.Logs.Count == 0)
+            {
+                return;
+            }
             try
             {
                 // Check if the file is already in use

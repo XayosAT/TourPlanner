@@ -216,7 +216,10 @@ namespace TourPlanner.ViewModels
 
         public async Task CreateAverageReportAsync()
         {
-
+            if (SelectedTour == null || SelectedTour.Logs.Count == 0)
+            {
+                return;
+            }
             // Generate the PDF report
             string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             string fileName = "AverageTourReport.pdf";
