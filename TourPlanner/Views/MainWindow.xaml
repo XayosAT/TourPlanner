@@ -17,15 +17,16 @@
     <DockPanel LastChildFill="True">
         <!-- Menu at the top -->
         <Menu DockPanel.Dock="Top">
-            <MenuItem Header="File"/>
-            <MenuItem Header="Edit"/>
-            <MenuItem Header="Options"/>
-            <MenuItem Header="Help"/>
+            <MenuItem Header="File">
+                <MenuItem Header="Export Tour" Command="{Binding ExportTourCommand}" />
+                <MenuItem Header="Import Tour" Command="{Binding ImportTourCommand}" />
+            </MenuItem>
+            
         </Menu>
         
         <!-- Status bar at the bottom -->
         <StatusBar DockPanel.Dock="Bottom">
-            <StatusBarItem Content="Vestibulum at eros"/>
+            <StatusBarItem Content="Best Tourplanner ever"/>
         </StatusBar>
         
         <!-- Main content area -->
@@ -40,6 +41,9 @@
                 <StackPanel>
                     <!-- Grid for the buttons -->
                     <Grid>
+                        
+                        
+                        
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -59,7 +63,7 @@
                     <ListView ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}" Margin="0,10,0,0">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Tour Name" DisplayMemberBinding="{Binding Name}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>

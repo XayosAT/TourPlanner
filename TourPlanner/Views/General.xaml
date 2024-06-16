@@ -6,10 +6,13 @@
              xmlns:local="clr-namespace:TourPlanner.Views"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+       
+        
     
     <ScrollViewer HorizontalScrollBarVisibility=" Auto" VerticalScrollBarVisibility="Auto">
         <Grid>
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -71,6 +74,8 @@
                     <TextBlock Text="{Binding SelectedTour.Type}" Grid.Column="1" Margin="5"/>
                 </Grid>
             </GroupBox>
+            
+            
         </Grid>
     </ScrollViewer>
 

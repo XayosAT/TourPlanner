@@ -12,6 +12,7 @@ using TourPlanner.MapServices;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
@@ -20,6 +21,7 @@ using TourPlanner.Helpers;
 using TourPlanner.Views;
 using log4net;
 using Microsoft.Web.WebView2.Core;
+using Microsoft.Win32;
 using TourPlanner.Helpers;
 
 
@@ -78,6 +80,9 @@ namespace TourPlanner.ViewModels
         public ICommand AddLogCommand { get; set; }
         public ICommand DeleteLogCommand { get; set; }
         public ICommand GenerateReportCommand { get; set; }
+        public ICommand GenerateAverageReportCommand { get; set; }
+        public ICommand ExportTourCommand { get; set; }
+        public ICommand ImportTourCommand { get; set; }
         
         
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -118,25 +123,71 @@ namespace TourPlanner.ViewModels
             DeleteTourCommand = new RelayCommand(DeleteTourAction);
             AddLogCommand = new RelayCommand(AddLogAction);
             DeleteLogCommand = new RelayCommand(DeleteLogAction);
-            GenerateReportCommand = new RelayCommand(async () => await GenerateReportForFirstTourAsync());
+            GenerateReportCommand = new RelayCommand(async () => await CreateReportAsync());
+            GenerateAverageReportCommand = new RelayCommand(async () => await CreateAverageReportAsync());
+            ExportTourCommand = new RelayCommand(async () => await ExportTourAsync());
+            ImportTourCommand = new RelayCommand(async () => await ImportTourAsync());
             LoadTours();
             
 
         }
-        
-        public async Task GenerateReportForFirstTourAsync()
+
+        private async Task ExportTourAsync()
         {
-            Console.WriteLine("Generating report for the first tour...");
-            if (Tours != null && Tours.Count > 0)
+            if (SelectedTour != null)
             {
-                Console.WriteLine("Tours available. Generating report...");
-                Tour firstTour = Tours[0];
-                await CreateReportAsync(firstTour);
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string fileName = SelectedTour.Name + ".json";
+                string filePath = Path.Combine(documentsPath, fileName);
+                await TourExporter.ExportTourAsync(SelectedTour, filePath);
+                log.Info("Tour exported successfully at " + filePath);
             }
-            else
+        }
+        
+        private async Task ImportTourAsync()
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+            OpenFileDialog openFileDialog = new OpenFileDialog
             {
-                log.Info("No tours available to generate a report.");
+                Filter = "JSON file (*.json)|*.json",
+                InitialDirectory = documentsPath
+            };
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string filePath = openFileDialog.FileName;
+                Tour importedTour = await TourImporter.ImportTourAsync(filePath);
+                if (importedTour != null)
+                {
+                    // Check if a tour with the same ID already exists
+                    if (!Tours.Any(t => t.Id == importedTour.Id))
+                    {
+                        await _context.Tours.AddAsync(importedTour);
+                        await _context.SaveChangesAsync();
+                        LoadTours();
+                        log.Info("Tour imported successfully from " + filePath);
+                    }
+                    else
+                    {
+                        log.Warn("A tour with the same ID already exists and will not be imported.");
+                    }
+                }
             }
+        }
+
+
+        public async Task CreateAverageReportAsync()
+        {
+
+            // Generate the PDF report
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string fileName = "AverageTourReport.pdf";
+            string filePath = Path.Combine(documentsPath, fileName);
+
+            await ReportGenerator.GenerateAveragePDFReportAsync(SelectedTour, filePath);
+            log.Info("Average PDF report generated successfully at " + filePath);
+            // Console.WriteLine($"PDF report generated at: {filePath}");
         }
 
         private void LoadConfig()
@@ -363,7 +414,7 @@ namespace TourPlanner.ViewModels
             }
         }
         
-        public async Task CreateReportAsync(Tour tour)
+        public async Task CreateReportAsync()
         {
             // Capture the map image
             string mapImagePath = await CaptureMapAsync();
@@ -373,7 +424,7 @@ namespace TourPlanner.ViewModels
             string fileName = "TourReport.pdf";
             string filePath = Path.Combine(documentsPath, fileName);
 
-            await ReportGenerator.GeneratePDFReportAsync(tour, filePath, mapImagePath);
+            await ReportGenerator.GeneratePDFReportAsync(SelectedTour, filePath, mapImagePath);
             log.Info("PDF report generated successfully at " + filePath);
             // Console.WriteLine($"PDF report generated at: {filePath}");
         }
