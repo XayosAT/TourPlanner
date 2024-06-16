@@ -13,29 +13,24 @@
             crossorigin=""></script>
 
 </head>
-<body style="margin: 0; padding: 0;">
-<div id="map" style="height: 100vh"></div>
-<script>
-    var map = L.map('map');
-    var bbox = directions.bbox;
-    map.fitBounds([[bbox[1], bbox[0]], [bbox[3], bbox[2]]]);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: ''
-    }).addTo(map);
-
-    L.geoJSON(directions, {
-        style: function (feature) {
-            return { weight: 7 };
-        }
-    }).addTo(map);
-    
-    // Get the coordinates for the start and end points
-    var startPoint = directions.features[0].geometry.coordinates[0];
-    var endPoint = directions.features[0].geometry.coordinates[directions.features[0].geometry.coordinates.length - 1];
-
-    // Add markers to the start and end points using Leaflet's built-in markers
-    L.marker([startPoint[1], startPoint[0]]).addTo(map).bindPopup("Start Point");
-    L.marker([endPoint[1], endPoint[0]]).addTo(map).bindPopup("End Point");
-</script>
-</body>
+    <body style="margin: 0; padding: 0;">
+        <div id="map" style="height: 100vh"></div>
+        <script>
+            var map = L.map('map');
+            
+            var mapbbox = directions.bbox;
+            map.fitBounds([[mapbbox[1], mapbbox[0]], [mapbbox[3], mapbbox[2]]]);
+            
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+        
+            L.geoJSON(directions).addTo(map);
+            
+            // retrieve coordinates for start and end location
+            var startPoint = directions.features[0].geometry.coordinates[0];
+            var endPoint = directions.features[0].geometry.coordinates[directions.features[0].geometry.coordinates.length - 1];
+            // add markers to start and end
+            L.marker([startPoint[1], startPoint[0]]).addTo(map).bindPopup("Start Point");
+            L.marker([endPoint[1], endPoint[0]]).addTo(map).bindPopup("End Point");
+        </script>
+    </body>
 </html>
