@@ -41,6 +41,11 @@
             <!-- Left Panel for Tours -->
             <Border Grid.Column="0" Background="{DynamicResource LeftPanelBackgroundColor}" Padding="10">
                 <StackPanel>
+                    <!-- Search bar on top of the grid -->
+                    <TextBox Margin="0,0,0,10"
+                             Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                             TextChanged="SearchTextBox_TextChanged" />
+
                     <!-- Grid for the buttons -->
                     <Grid>
                         <Grid.ColumnDefinitions>

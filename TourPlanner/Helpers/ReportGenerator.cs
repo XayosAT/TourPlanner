@@ -13,77 +13,85 @@ namespace TourPlanner.Helpers
     {
         public static async Task GeneratePDFReportAsync(Tour tour, string filePath, string mapImagePath)
         {
-            Document doc = new Document(PageSize.A4, 50, 50, 50, 50);
-            PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
-            doc.Open();
-
-            // Title
-            var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
-            var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY);
-            var bodyFont = FontFactory.GetFont(FontFactory.HELVETICA, 12, BaseColor.DARK_GRAY);
-            var tableHeaderFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
-
-            // Add title
-            var titleParagraph = new Paragraph("Tour Report", titleFont)
+            try
             {
-                Alignment = Element.ALIGN_CENTER
-            };
-            doc.Add(titleParagraph);
-            doc.Add(new Paragraph("\n")); // Adding a space
 
-            // Add tour details section
-            PdfPTable detailsTable = new PdfPTable(2) { WidthPercentage = 100 };
-            detailsTable.SetWidths(new float[] { 1, 2 });
+                Document doc = new Document(PageSize.A4, 50, 50, 50, 50);
+                PdfWriter.GetInstance(doc, new FileStream(filePath, FileMode.Create));
+                doc.Open();
 
-            AddCellToDetailsTable(detailsTable, "Tour Name:", tour.Name, headerFont, bodyFont);
-            AddCellToDetailsTable(detailsTable, "Description:", tour.Description, headerFont, bodyFont);
-            AddCellToDetailsTable(detailsTable, "Start Location:", tour.StartLocation, headerFont, bodyFont);
-            AddCellToDetailsTable(detailsTable, "End Location:", tour.EndLocation, headerFont, bodyFont);
-            AddCellToDetailsTable(detailsTable, "Transport Type:", tour.Type.ToString(), headerFont, bodyFont);
-            AddCellToDetailsTable(detailsTable, "Distance:", $"{tour.Distance} km", headerFont, bodyFont);
-            AddCellToDetailsTable(detailsTable, "Time:", $"{tour.Time} hours", headerFont, bodyFont);
+                // Title
+                var titleFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 18, BaseColor.DARK_GRAY);
+                var headerFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 14, BaseColor.DARK_GRAY);
+                var bodyFont = FontFactory.GetFont(FontFactory.HELVETICA, 12, BaseColor.DARK_GRAY);
+                var tableHeaderFont = FontFactory.GetFont(FontFactory.HELVETICA_BOLD, 12, BaseColor.WHITE);
 
-            doc.Add(detailsTable);
-            doc.Add(new Paragraph("\n")); // Adding a space
-
-            // Add the captured map image
-            if (!string.IsNullOrEmpty(mapImagePath))
-            {
-                Image mapImage = Image.GetInstance(mapImagePath);
-                mapImage.Alignment = Element.ALIGN_CENTER;
-                mapImage.ScaleToFit(500f, 500f); // Adjust the scale as needed
-                doc.Add(mapImage);
+                // Add title
+                var titleParagraph = new Paragraph("Tour Report", titleFont)
+                {
+                    Alignment = Element.ALIGN_CENTER
+                };
+                doc.Add(titleParagraph);
                 doc.Add(new Paragraph("\n")); // Adding a space
+
+                // Add tour details section
+                PdfPTable detailsTable = new PdfPTable(2) { WidthPercentage = 100 };
+                detailsTable.SetWidths(new float[] { 1, 2 });
+
+                AddCellToDetailsTable(detailsTable, "Tour Name:", tour.Name, headerFont, bodyFont);
+                AddCellToDetailsTable(detailsTable, "Description:", tour.Description, headerFont, bodyFont);
+                AddCellToDetailsTable(detailsTable, "Start Location:", tour.StartLocation, headerFont, bodyFont);
+                AddCellToDetailsTable(detailsTable, "End Location:", tour.EndLocation, headerFont, bodyFont);
+                AddCellToDetailsTable(detailsTable, "Transport Type:", tour.Type.ToString(), headerFont, bodyFont);
+                AddCellToDetailsTable(detailsTable, "Distance:", $"{tour.Distance} km", headerFont, bodyFont);
+                AddCellToDetailsTable(detailsTable, "Time:", $"{tour.Time} hours", headerFont, bodyFont);
+
+                doc.Add(detailsTable);
+                doc.Add(new Paragraph("\n")); // Adding a space
+
+                // Add the captured map image
+                if (!string.IsNullOrEmpty(mapImagePath))
+                {
+                    Image mapImage = Image.GetInstance(mapImagePath);
+                    mapImage.Alignment = Element.ALIGN_CENTER;
+                    mapImage.ScaleToFit(500f, 500f); // Adjust the scale as needed
+                    doc.Add(mapImage);
+                    doc.Add(new Paragraph("\n")); // Adding a space
+                }
+
+                // Tour Logs Table
+                doc.Add(new Paragraph("Tour Logs", headerFont));
+                doc.Add(new Paragraph("\n")); // Adding a space
+
+                PdfPTable logsTable = new PdfPTable(6) { WidthPercentage = 100 };
+                logsTable.SetWidths(new float[] { 2, 2, 3, 2, 2, 2 });
+
+                // Table headers
+                AddCellToHeader(logsTable, "Date", tableHeaderFont);
+                AddCellToHeader(logsTable, "Total Time (hours)", tableHeaderFont);
+                AddCellToHeader(logsTable, "Comment", tableHeaderFont);
+                AddCellToHeader(logsTable, "Difficulty", tableHeaderFont);
+                AddCellToHeader(logsTable, "Total Distance (km)", tableHeaderFont);
+                AddCellToHeader(logsTable, "Rating", tableHeaderFont);
+
+                // Table rows
+                foreach (var log in tour.Logs)
+                {
+                    AddCellToBody(logsTable, log.Date, bodyFont);
+                    AddCellToBody(logsTable, log.TotalTime.ToString(), bodyFont);
+                    AddCellToBody(logsTable, log.Comment, bodyFont);
+                    AddCellToBody(logsTable, log.Difficulty.ToString(), bodyFont);
+                    AddCellToBody(logsTable, log.TotalDistance.ToString(), bodyFont);
+                    AddCellToBody(logsTable, log.Rating.ToString(), bodyFont);
+                }
+
+                doc.Add(logsTable);
+                doc.Close();
             }
-
-            // Tour Logs Table
-            doc.Add(new Paragraph("Tour Logs", headerFont));
-            doc.Add(new Paragraph("\n")); // Adding a space
-
-            PdfPTable logsTable = new PdfPTable(6) { WidthPercentage = 100 };
-            logsTable.SetWidths(new float[] { 2, 2, 3, 2, 2, 2 });
-
-            // Table headers
-            AddCellToHeader(logsTable, "Date", tableHeaderFont);
-            AddCellToHeader(logsTable, "Total Time (hours)", tableHeaderFont);
-            AddCellToHeader(logsTable, "Comment", tableHeaderFont);
-            AddCellToHeader(logsTable, "Difficulty", tableHeaderFont);
-            AddCellToHeader(logsTable, "Total Distance (km)", tableHeaderFont);
-            AddCellToHeader(logsTable, "Rating", tableHeaderFont);
-
-            // Table rows
-            foreach (var log in tour.Logs)
+            catch
             {
-                AddCellToBody(logsTable, log.Date, bodyFont);
-                AddCellToBody(logsTable, log.TotalTime.ToString(), bodyFont);
-                AddCellToBody(logsTable, log.Comment, bodyFont);
-                AddCellToBody(logsTable, log.Difficulty.ToString(), bodyFont);
-                AddCellToBody(logsTable, log.TotalDistance.ToString(), bodyFont);
-                AddCellToBody(logsTable, log.Rating.ToString(), bodyFont);
+                
             }
-
-            doc.Add(logsTable);
-            doc.Close();
         }
         public static async Task GenerateAveragePDFReportAsync(Tour tour, string filePath)
         {

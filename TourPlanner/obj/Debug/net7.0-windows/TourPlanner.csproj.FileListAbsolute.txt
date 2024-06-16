@@ -198,3 +198,5 @@ C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPl
 C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\bin\Debug\net7.0-windows\itextsharp.dll
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\ColorThemes\DarkTheme.baml
 C:\Users\Christoph\RiderProjects\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\ColorThemes\LightTheme.baml
+C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\ColorThemes\DarkTheme.baml
+C:\Users\Philipp Wudernitz\OneDrive\Desktop\SWEN_Tour_Planner\TourPlanner\TourPlanner\obj\Debug\net7.0-windows\Views\ColorThemes\LightTheme.baml

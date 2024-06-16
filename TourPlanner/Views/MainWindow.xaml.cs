@@ -22,15 +22,21 @@ namespace TourPlanner
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainViewModel _viewModel;
         public MainWindow()
         {
             InitializeComponent();
-            var viewModel = new MainViewModel();
-            DataContext = viewModel;
+            _viewModel = new MainViewModel();
+            DataContext = _viewModel;
             
-            var routeControl = new Route(viewModel);
-            viewModel.RouteControl = routeControl;
+            var routeControl = new Route(_viewModel);
+            _viewModel.RouteControl = routeControl;
             
+        }
+        
+        private void SearchTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            _viewModel.FilterTours();
         }
     }
 }

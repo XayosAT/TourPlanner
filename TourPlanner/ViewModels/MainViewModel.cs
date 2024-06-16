@@ -23,8 +23,6 @@ using TourPlanner.Views;
 using log4net;
 using Microsoft.Web.WebView2.Core;
 using Microsoft.Win32;
-using TourPlanner.Helpers;
-
 
 namespace TourPlanner.ViewModels
 {
@@ -40,6 +38,8 @@ namespace TourPlanner.ViewModels
         private ObservableCollection<Tour> _tours;
         private WebView2 _mapWebView;
         private Route _routeControl;
+        private ObservableCollection<Tour> _initialTours;
+        private string _searchQuery;
         public Route RouteControl
         {
             get => _routeControl;
@@ -69,6 +69,17 @@ namespace TourPlanner.ViewModels
                     _mapWebView = value;
                     OnPropertyChanged(nameof(MapWebView));
                 }
+            }
+        }
+        
+        public string SearchQuery
+        {
+            get => _searchQuery;
+            set
+            {
+                _searchQuery = value;
+                OnPropertyChanged();
+                FilterTours();
             }
         }
         
@@ -132,8 +143,6 @@ namespace TourPlanner.ViewModels
             ToggleThemeCommand = new RelayCommand(ToggleTheme);
             ToggleTheme();
             LoadTours();
-            
-
         }
         
         private void ToggleTheme()
@@ -148,10 +157,12 @@ namespace TourPlanner.ViewModels
 
             if (currentTheme != null && currentTheme.Source.OriginalString.Contains("DarkTheme.xaml"))
             {
+                log.Info("Switching to Light Theme");
                 newTheme.Source = new Uri("pack://application:,,,/TourPlanner;component/Views/ColorThemes/LightTheme.xaml");
             }
             else
             {
+                log.Info("Switching to Dark Theme");
                 newTheme.Source = new Uri("pack://application:,,,/TourPlanner;component/Views/ColorThemes/DarkTheme.xaml");
             }
 
@@ -248,10 +259,29 @@ namespace TourPlanner.ViewModels
         {
             var tours = await _context.Tours.Include(t => t.Logs).ToListAsync();
             Tours = new ObservableCollection<Tour>(tours);
+            _initialTours = Tours;
             log.Info("Loaded tours");
             if (Tours.Count > 0)
             {
                 SelectedTour = Tours[0];
+            }
+        }
+        
+        public void FilterTours()
+        {
+            Tours = _initialTours;
+     
+            if(_searchQuery == null || _searchQuery == "")
+            {
+                return;
+            }
+            
+            var searcher = new TourSearcher();
+            var results = searcher.Search(_searchQuery, Tours);
+            if (results != null)
+            {
+                log.Info("Display filtered tours");
+                Tours = results;
             }
         }
         
