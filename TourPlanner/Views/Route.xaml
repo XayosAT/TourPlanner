@@ -24,19 +24,19 @@
         
         <!-- Button Style -->
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#007ACC"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#007ACC"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackgroundColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="FontFamily" Value="Segue UI"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
             <Setter Property="Padding" Value="10,5"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#005F99"/>
-                    <Setter Property="BorderBrush" Value="#005F99"/>
+                    <Setter Property="Background" Value="{DynamicResource ButtonHoverBackgroundColor}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource ButtonHoverBackgroundColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -50,17 +50,26 @@
                 </DataTrigger>
             </Style.Triggers>
         </Style>
+
+        <!-- DataGrid Column Header Style -->
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="{DynamicResource ListViewHeaderBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ListViewHeaderForegroundColor}"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+        </Style>
         
     </UserControl.Resources>
     
     
-    <Grid>
+    <Grid Background="{DynamicResource BackgroundColor}">
         <!-- Elements to show when ShowAddLogForm is False -->
         <Grid Style="{StaticResource VisibleWhenFormClosed}">
             
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             
             
@@ -79,16 +88,18 @@
                       CanUserDeleteRows="False"
                       IsReadOnly="True"
                       GridLinesVisibility="None"
-                      AlternatingRowBackground="#F3F3F3"
-                      RowBackground="White"
-                      BorderBrush="#CCCCCC"
+                      AlternatingRowBackground="{DynamicResource ListViewItemBackgroundColor}"
+                      RowBackground="{DynamicResource ListViewItemBackgroundColor}"
+                      BorderBrush="{DynamicResource ListViewHeaderBackgroundColor}"
                       BorderThickness="1"
                       ColumnHeaderHeight="32"
                       RowHeight="24"
                       Padding="5"
-                      HorizontalGridLinesBrush="#E0E0E0"
-                      VerticalGridLinesBrush="#E0E0E0"
-                      ColumnWidth="*">
+                      HorizontalGridLinesBrush="{DynamicResource ListViewHeaderBackgroundColor}"
+                      VerticalGridLinesBrush="{DynamicResource ListViewHeaderBackgroundColor}"
+                      ColumnWidth="*"
+                      Background="{DynamicResource ListViewBackgroundColor}"
+                      Foreground="{DynamicResource ListViewItemForegroundColor}">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat=\{0:d\}}" />
                     <DataGridTextColumn Header="Total Time" Binding="{Binding TotalTime, StringFormat=\{0\} h}" />
@@ -98,7 +109,7 @@
                 </DataGrid.Columns>
             </DataGrid>
             
-            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10">
                 <Button Content="Add Log"
                         Style="{StaticResource ButtonStyle}"
                         Margin="0,0,10,0"

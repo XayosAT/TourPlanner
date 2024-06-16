@@ -14,6 +14,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Web.WebView2.Wpf;
@@ -83,6 +84,7 @@ namespace TourPlanner.ViewModels
         public ICommand GenerateAverageReportCommand { get; set; }
         public ICommand ExportTourCommand { get; set; }
         public ICommand ImportTourCommand { get; set; }
+        public ICommand ToggleThemeCommand { get; set; }
         
         
         string projectDirectory = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.Parent.FullName;
@@ -127,9 +129,33 @@ namespace TourPlanner.ViewModels
             GenerateAverageReportCommand = new RelayCommand(async () => await CreateAverageReportAsync());
             ExportTourCommand = new RelayCommand(async () => await ExportTourAsync());
             ImportTourCommand = new RelayCommand(async () => await ImportTourAsync());
+            ToggleThemeCommand = new RelayCommand(ToggleTheme);
+            ToggleTheme();
             LoadTours();
             
 
+        }
+        
+        private void ToggleTheme()
+        {
+            var currentTheme = Application.Current.Resources.MergedDictionaries.FirstOrDefault();
+            if (currentTheme != null)
+            {
+                Application.Current.Resources.MergedDictionaries.Remove(currentTheme);
+            }
+
+            var newTheme = new ResourceDictionary();
+
+            if (currentTheme != null && currentTheme.Source.OriginalString.Contains("DarkTheme.xaml"))
+            {
+                newTheme.Source = new Uri("pack://application:,,,/TourPlanner;component/Views/ColorThemes/LightTheme.xaml");
+            }
+            else
+            {
+                newTheme.Source = new Uri("pack://application:,,,/TourPlanner;component/Views/ColorThemes/DarkTheme.xaml");
+            }
+
+            Application.Current.Resources.MergedDictionaries.Add(newTheme);
         }
 
         private async Task ExportTourAsync()

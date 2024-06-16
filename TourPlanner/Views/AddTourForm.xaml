@@ -11,13 +11,12 @@
              xmlns:enums="clr-namespace:TourPlanner.Enums"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-
+    
     <UserControl.Resources>
-        
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#007ACC"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#007ACC"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackgroundColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -26,18 +25,16 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#005F99"/>
-                    <Setter Property="BorderBrush" Value="#005F99"/>
+                    <Setter Property="Background" Value="{DynamicResource ButtonHoverBackgroundColor}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource ButtonHoverBackgroundColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
-        
         <ObjectDataProvider x:Key="TransportTypeProvider" MethodName="GetValues" ObjectType="{x:Type System:Enum}">
             <ObjectDataProvider.MethodParameters>
                 <x:Type TypeName="enums:TransportType"/>
             </ObjectDataProvider.MethodParameters>
         </ObjectDataProvider>
-        
     </UserControl.Resources>
     
     <Grid Margin="10">
@@ -61,7 +58,7 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="Name:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+        <TextBox Grid.Row="0" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
             <TextBox.Text>
                 <Binding Path="NewTour.Name" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -81,10 +78,10 @@
         </TextBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Description:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding NewTour.Description}" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding NewTour.Description}" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Start Location:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+        <TextBox Grid.Row="2" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
             <TextBox.Text>
                 <Binding Path="NewTour.StartLocation" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -104,7 +101,7 @@
         </TextBox>
 
         <Label Grid.Row="3" Grid.Column="0" Content="End Location:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="3" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+        <TextBox Grid.Row="3" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
             <TextBox.Text>
                 <Binding Path="NewTour.EndLocation" UpdateSourceTrigger="PropertyChanged">
                     <Binding.ValidationRules>
@@ -126,7 +123,7 @@
         <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:" VerticalAlignment="Center"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource TransportTypeProvider}}"
                     SelectedItem="{Binding NewTour.TransportType, Mode=TwoWay}"
-                    Grid.Row="4" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5">
+                    Grid.Row="4" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5" Background="{DynamicResource ComboBoxBackgroundColor}" Foreground="{DynamicResource ComboBoxForegroundColor}">
         </ComboBox>
         
         <!-- Add more fields as needed -->

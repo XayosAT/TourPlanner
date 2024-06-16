@@ -6,14 +6,13 @@
              xmlns:local="clr-namespace:TourPlanner.Views"
              xmlns:System="clr-namespace:System;assembly=System.Runtime"
              xmlns:enums="clr-namespace:TourPlanner.Enums"
-             
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
     <UserControl.Resources>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#007ACC"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="BorderBrush" Value="#007ACC"/>
+            <Setter Property="Background" Value="{DynamicResource ButtonBackgroundColor}"/>
+            <Setter Property="Foreground" Value="{DynamicResource ButtonForegroundColor}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ButtonBackgroundColor}"/>
             <Setter Property="BorderThickness" Value="1"/>
             <Setter Property="FontWeight" Value="Bold"/>
             <Setter Property="FontFamily" Value="Segoe UI"/>
@@ -22,8 +21,8 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#005F99"/>
-                    <Setter Property="BorderBrush" Value="#005F99"/>
+                    <Setter Property="Background" Value="{DynamicResource ButtonHoverBackgroundColor}"/>
+                    <Setter Property="BorderBrush" Value="{DynamicResource ButtonHoverBackgroundColor}"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -39,8 +38,7 @@
         </ObjectDataProvider>
     </UserControl.Resources>
     
-    
-    <Grid Margin="10">
+    <Grid Margin="10" Background="{DynamicResource BackgroundColor}" >
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
@@ -61,23 +59,47 @@
         </Grid.RowDefinitions>
 
         <Label Grid.Row="0" Content="Date:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="0" Grid.Column="1" Width="200" Text="{Binding NewLog.Date }" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="0" Grid.Column="1" Width="200" Text="{Binding NewLog.Date}" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
         
         <Label Grid.Row="1" Content="Duration:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding NewLog.TotalTime }" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding NewLog.TotalTime}" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
         
         <Label Grid.Row="2" Content="Distance:" VerticalAlignment="Center"/>
-        <TextBox Grid.Row="2" Grid.Column="1" Width="200" Text="{Binding NewLog.TotalDistance }" VerticalAlignment="Center" Margin="5"/>
+        <TextBox Grid.Row="2" Grid.Column="1" Width="200" Text="{Binding NewLog.TotalDistance}" VerticalAlignment="Center" Margin="5" Background="{DynamicResource TextBoxBackgroundColor}" Foreground="{DynamicResource ForegroundColor}"/>
         
-        <!--
-        Combobox for rating
-        -->
+        <!-- Combobox for rating -->
         <Label Grid.Row="3" Content="Rating:" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="3" Grid.Column="1" Width="200" ItemsSource="{Binding Source={StaticResource RatingProvider}}" SelectedItem="{Binding NewLog.Rating}" Margin="5"/>
+        <ComboBox Grid.Row="3" Grid.Column="1" Width="200" ItemsSource="{Binding Source={StaticResource RatingProvider}}" SelectedItem="{Binding NewLog.Rating}" Margin="5" Background="{DynamicResource ComboBoxBackgroundColor}" Foreground="{DynamicResource ComboBoxForegroundColor}">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="{DynamicResource ComboBoxItemBackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource ComboBoxItemForegroundColor}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ComboBoxItemSelectedBackgroundColor}"/>
+                            <Setter Property="Foreground" Value="Black"/> <!-- Ensure selected text is black -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
         
         <!-- Combobox for difficulty -->
         <Label Grid.Row="4" Content="Difficulty:" VerticalAlignment="Center"/>
-        <ComboBox Grid.Row="4" Grid.Column="1" Width="200" ItemsSource="{Binding Source={StaticResource DifficultyProvider}}" SelectedItem="{Binding NewLog.Difficulty}" Margin="5"/>
+        <ComboBox Grid.Row="4" Grid.Column="1" Width="200" ItemsSource="{Binding Source={StaticResource DifficultyProvider}}" SelectedItem="{Binding NewLog.Difficulty}" Margin="5" Background="{DynamicResource ComboBoxBackgroundColor}" Foreground="{DynamicResource ComboBoxForegroundColor}">
+            <ComboBox.ItemContainerStyle>
+                <Style TargetType="ComboBoxItem">
+                    <Setter Property="Background" Value="{DynamicResource ComboBoxItemBackgroundColor}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource ComboBoxItemForegroundColor}"/>
+                    <Style.Triggers>
+                        <Trigger Property="IsSelected" Value="True">
+                            <Setter Property="Background" Value="{DynamicResource ComboBoxItemSelectedBackgroundColor}"/>
+                            <Setter Property="Foreground" Value="Black"/> <!-- Ensure selected text is black -->
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ComboBox.ItemContainerStyle>
+        </ComboBox>
 
         <!-- Add more fields as needed -->
 

@@ -16,16 +16,18 @@
     
     <DockPanel LastChildFill="True">
         <!-- Menu at the top -->
-        <Menu DockPanel.Dock="Top">
+        <Menu DockPanel.Dock="Top" Background="{DynamicResource TopBottomPanelBackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
             <MenuItem Header="File">
                 <MenuItem Header="Export Tour" Command="{Binding ExportTourCommand}" />
                 <MenuItem Header="Import Tour" Command="{Binding ImportTourCommand}" />
             </MenuItem>
-            
+            <MenuItem Header="Settings">
+                <MenuItem Header="Toggle Dark Mode" Command="{Binding ToggleThemeCommand}" />
+            </MenuItem>
         </Menu>
         
         <!-- Status bar at the bottom -->
-        <StatusBar DockPanel.Dock="Bottom">
+        <StatusBar DockPanel.Dock="Bottom" Background="{DynamicResource TopBottomPanelBackgroundColor}" Foreground="{DynamicResource ForegroundColor}">
             <StatusBarItem Content="Best Tourplanner ever"/>
         </StatusBar>
         
@@ -37,13 +39,10 @@
             </Grid.ColumnDefinitions>
             
             <!-- Left Panel for Tours -->
-            <Border Grid.Column="0" Background="LightBlue" Padding="10">
+            <Border Grid.Column="0" Background="{DynamicResource LeftPanelBackgroundColor}" Padding="10">
                 <StackPanel>
                     <!-- Grid for the buttons -->
                     <Grid>
-                        
-                        
-                        
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -60,25 +59,22 @@
         
                     <!-- ListView below the buttons -->
                     <!--show all Tours in the ListView an bind the selected Tour to the ViewModel-->
-                    <ListView ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}" Margin="0,10,0,0">
+                    <ListView ItemsSource="{Binding Tours}" SelectedItem="{Binding SelectedTour}" Margin="0,10,0,0" Background="{DynamicResource ListViewBackgroundColor}" Foreground="{DynamicResource ListViewItemForegroundColor}">
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn Header="Tour Name" DisplayMemberBinding="{Binding Name}"/>
+                                <GridViewColumn Header="Name" DisplayMemberBinding="{Binding Name}"/>
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    
-                    
-                    
                 </StackPanel>
             </Border>
-
-
             
             <!-- Right Panel for Tour Details -->
-            <ContentControl Grid.Column="1" Margin="10">
+            <ContentControl Grid.Column="1" Margin="0">
                 <ContentControl.Style>
                     <Style TargetType="ContentControl">
+                        <Setter Property="Background" Value="{DynamicResource ContentControlBackgroundColor}"/>
+                        <Setter Property="Foreground" Value="{DynamicResource ContentControlForegroundColor}"/>
                         <Style.Triggers>
                             <!-- Trigger to show AddTourControl when AddTourVisibility property is set to true -->
                             <DataTrigger Binding="{Binding ShowAddTourForm}" Value="True">
@@ -92,14 +88,14 @@
                             <DataTrigger Binding="{Binding ShowAddTourForm}" Value="False">
                                 <Setter Property="Content">
                                     <Setter.Value>
-                                        <TabControl>
-                                            <TabItem Header="General">
+                                        <TabControl Background="{DynamicResource TabControlBackgroundColor}" Foreground="{DynamicResource TabControlForegroundColor}">
+                                            <TabItem Header="General" Background="{DynamicResource TabItemBackgroundColor}" Foreground="{DynamicResource TabItemForegroundColor}">
                                                 <views:General/>
                                             </TabItem>
-                                            <TabItem Header="Route">
+                                            <TabItem Header="Route" Background="{DynamicResource TabItemBackgroundColor}" Foreground="{DynamicResource TabItemForegroundColor}">
                                                 <ContentPresenter Content="{Binding RouteControl}" />
                                             </TabItem>
-                                            <TabItem Header="Misc">
+                                            <TabItem Header="Misc" Background="{DynamicResource TabItemBackgroundColor}" Foreground="{DynamicResource TabItemForegroundColor}">
                                                 <views:Misc />
                                             </TabItem>
                                         </TabControl>
