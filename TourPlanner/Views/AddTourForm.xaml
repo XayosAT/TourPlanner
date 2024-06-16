@@ -122,9 +122,11 @@
         
         <Label Grid.Row="4" Grid.Column="0" Content="Transport Type:" VerticalAlignment="Center"/>
         <ComboBox ItemsSource="{Binding Source={StaticResource TransportTypeProvider}}"
-                    SelectedItem="{Binding NewTour.TransportType, Mode=TwoWay}"
-                    Grid.Row="4" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5" Background="{DynamicResource ComboBoxBackgroundColor}" Foreground="{DynamicResource ComboBoxForegroundColor}">
+                  SelectedItem="{Binding NewTour.Type, Mode=TwoWay}"
+                  Grid.Row="4" Grid.Column="1" Width="200" VerticalAlignment="Center" Margin="5" 
+                  Background="{DynamicResource ComboBoxBackgroundColor}" Foreground="{DynamicResource ComboBoxForegroundColor}">
         </ComboBox>
+
         
         <!-- Add more fields as needed -->
 
